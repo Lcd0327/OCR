@@ -1,0 +1,201 @@
+{
+  "file_path": "assets\\dd7df4cfc15d7a615ee112596477761f.jpg",
+  "timestamp": 1753601440,
+  "total_pages": 1,
+  "pages": [
+    {
+      "page_number": 1,
+      "tables": [
+        {
+          "table_id": 1,
+          "position_y": 177.0,
+          "data": [
+            [
+              "YOUR NAME",
+              ""
+            ],
+            [
+              "PRODUCT DESIGNER, ANALYTICS",
+              "PROFILE"
+            ],
+            [
+              "New York, USA",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
+            ]
+          ],
+          "column_count": 2,
+          "row_count": 3,
+          "formatted_display": "YOUR NAME                   |                                         \n----------------------------+-----------------------------------------\nPRODUCT DESIGNER, ANALYTICS | PROFILE\nNew York, USA               | Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+          "category": "other"
+        },
+        {
+          "table_id": 2,
+          "position_y": 782.0,
+          "data": [
+            [
+              "",
+              "magna ipsum dolor sit amet, consectetur adipiscing elit,",
+              ""
+            ],
+            [
+              "jacobscott@email.com\nSKILLS",
+              "sed do eiusmod tempor incididunt ut labore et dolore\nEXPERIEN",
+              ""
+            ],
+            [
+              "PROFFESSIONAL",
+              "JOB TITLE HERE",
+              ".2020 -"
+            ],
+            [
+              "Graphic Design",
+              "COMPANY NAME",
+              ""
+            ],
+            [
+              "UX/UI Design",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+              ""
+            ],
+            [
+              "Web Design",
+              "sed do eiusmod tempor incididunt ut labore et dolore\nmagna ipsum dolor sit amet, consectetur adipiscing elit,",
+              ""
+            ],
+            [
+              "Project Management",
+              "sed do eiusmod tempor incididunt ut labore et dolore",
+              ""
+            ],
+            [
+              "Market Research",
+              "magna",
+              ""
+            ],
+            [
+              "Wireframing",
+              ". .Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+              ""
+            ],
+            [
+              "Usability Testing\nEDUCATION",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit,\nJOB TITLE HERE\nCOMPANY NAME",
+              ".2020 -"
+            ]
+          ],
+          "column_count": 3,
+          "row_count": 10,
+          "formatted_display": "                     | magna ipsum dolor sit amet, consectetur adipiscing elit, |        \n---------------------+------------------------------------------+--------\njacobscott@email.com | sed do eiusmod tempor incididunt ut labore et dolore |\nSKILLS               | EXPERIEN                                 |\nPROFFESSIONAL        | JOB TITLE HERE                           | .2020 -\nGraphic Design       | COMPANY NAME                             |\nUX/UI Design         | Lorem ipsum dolor sit amet, consectetur adipiscing elit, |\nWeb Design           | sed do eiusmod tempor incididunt ut labore et dolore |\n                     | magna ipsum dolor sit amet, consectetur adipiscing elit, |\nProject Management   | sed do eiusmod tempor incididunt ut labore et dolore |\nMarket Research      | magna                                    |\nWireframing          | . .Lorem ipsum dolor sit amet, consectetur adipiscing elit, |\nUsability Testing    | Lorem ipsum dolor sit amet, consectetur adipiscing elit, | .2020 -\nEDUCATION            | JOB TITLE HERE                           |\n                     | COMPANY NAME                             |",
+          "category": "other"
+        },
+        {
+          "table_id": 3,
+          "position_y": 1605.0,
+          "data": [
+            [
+              "DEGREE TITLE",
+              "",
+              ""
+            ],
+            [
+              "University Name",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+              ""
+            ],
+            [
+              "2020 - 2023",
+              "sed do eiusmod tempor incididunt ut labore et dolore\nmagna ipsum dolor sit amet, consectetur adipiscing elit,",
+              ""
+            ],
+            [
+              "DEGREE TITLE",
+              "sed do eiusmod tempor incididunt ut labore et dolore",
+              ""
+            ],
+            [
+              "University Name\n2020 - 2023\nEXPERTISE",
+              "magna\n..Lorem ipsum dolor sit amet, consectetur adipiscing elit,\nLorem ipsum dolor sit amet, consectetur adipiscing elit,\nJOB TITLE HERE",
+              ".2020 -"
+            ],
+            [
+              "TECHNICAL\n· Adobe Photoshop",
+              "COMPANY NAME\nLorem ipsum dolor sit amet, consectetur adipiscing elit,",
+              ""
+            ],
+            [
+              ".Adobe Illustrator",
+              "sed do eiusmod tempor incididunt ut labore et dolore",
+              ""
+            ]
+          ],
+          "column_count": 3,
+          "row_count": 7,
+          "formatted_display": "DEGREE TITLE       |                                          |        \n-------------------+------------------------------------------+--------\nUniversity Name    | Lorem ipsum dolor sit amet, consectetur adipiscing elit, |\n2020 - 2023        | sed do eiusmod tempor incididunt ut labore et dolore |\n                   | magna ipsum dolor sit amet, consectetur adipiscing elit, |\nDEGREE TITLE       | sed do eiusmod tempor incididunt ut labore et dolore |\nUniversity Name    | magna                                    | .2020 -\n2020 - 2023        | ..Lorem ipsum dolor sit amet, consectetur adipiscing elit, |\nEXPERTISE          | Lorem ipsum dolor sit amet, consectetur adipiscing elit, |\n                   | JOB TITLE HERE                           |\nTECHNICAL          | COMPANY NAME                             |\n· Adobe Photoshop  | Lorem ipsum dolor sit amet, consectetur adipiscing elit, |\n.Adobe Illustrator | sed do eiusmod tempor incididunt ut labore et dolore |",
+          "category": "other"
+        },
+        {
+          "table_id": 4,
+          "position_y": 2160.0,
+          "data": [
+            [
+              "· After Effects\n.Sketch App",
+              "magna ipsum dolor sit amet, consectetur adipiscing elit,\nsed do eiusmod tempor incididunt ut labore et dolore\nmagna"
+            ]
+          ],
+          "column_count": 2,
+          "row_count": 1,
+          "formatted_display": "· After Effects\n.Sketch App | magna ipsum dolor sit amet, consectetur adipiscing elit,\nsed do eiusmod tempor incididunt ut labore et dolore\nmagna\n----------------+-----------------------------------------",
+          "category": "other"
+        }
+      ],
+      "text_blocks": [
+        {
+          "block_id": 1,
+          "position_y": 741.0,
+          "content": [
+            {
+              "text": "sed do eiusmod tempor incididunt ut labore et dolore",
+              "position": {
+                "x1": 656.0,
+                "y1": 741.0,
+                "x2": 1477.0,
+                "y2": 775.0
+              }
+            }
+          ]
+        },
+        {
+          "block_id": 2,
+          "position_y": 765.0,
+          "content": [
+            {
+              "text": "+01 2345 6789 02",
+              "position": {
+                "x1": 207.0,
+                "y1": 765.0,
+                "x2": 502.0,
+                "y2": 796.0
+              }
+            }
+          ]
+        }
+      ],
+      "statistics": {
+        "total_tables": 4,
+        "total_text_blocks": 2,
+        "total_lines": 68,
+        "page_text_length": 2732
+      },
+      "full_text": "\n[表格 1][分類:other]\nYOUR NAME                   |                                         \n----------------------------+-----------------------------------------\nPRODUCT DESIGNER, ANALYTICS | PROFILE\nNew York, USA               | Lorem ipsum dolor sit amet, consectetur adipiscing elit,\n\nsed do eiusmod tempor incididunt ut labore et dolore\n+01 2345 6789 02\n\n[表格 2][分類:other]\n                     | magna ipsum dolor sit amet, consectetur adipiscing elit, |        \n---------------------+------------------------------------------+--------\njacobscott@email.com | sed do eiusmod tempor incididunt ut labore et dolore |\nSKILLS               | EXPERIEN                                 |\nPROFFESSIONAL        | JOB TITLE HERE                           | .2020 -\nGraphic Design       | COMPANY NAME                             |\nUX/UI Design         | Lorem ipsum dolor sit amet, consectetur adipiscing elit, |\nWeb Design           | sed do eiusmod tempor incididunt ut labore et dolore |\n                     | magna ipsum dolor sit amet, consectetur adipiscing elit, |\nProject Management   | sed do eiusmod tempor incididunt ut labore et dolore |\nMarket Research      | magna                                    |\nWireframing          | . .Lorem ipsum dolor sit amet, consectetur adipiscing elit, |\nUsability Testing    | Lorem ipsum dolor sit amet, consectetur adipiscing elit, | .2020 -\nEDUCATION            | JOB TITLE HERE                           |\n                     | COMPANY NAME                             |\n\n\n[表格 3][分類:other]\nDEGREE TITLE       |                                          |        \n-------------------+------------------------------------------+--------\nUniversity Name    | Lorem ipsum dolor sit amet, consectetur adipiscing elit, |\n2020 - 2023        | sed do eiusmod tempor incididunt ut labore et dolore |\n                   | magna ipsum dolor sit amet, consectetur adipiscing elit, |\nDEGREE TITLE       | sed do eiusmod tempor incididunt ut labore et dolore |\nUniversity Name    | magna                                    | .2020 -\n2020 - 2023        | ..Lorem ipsum dolor sit amet, consectetur adipiscing elit, |\nEXPERTISE          | Lorem ipsum dolor sit amet, consectetur adipiscing elit, |\n                   | JOB TITLE HERE                           |\nTECHNICAL          | COMPANY NAME                             |\n· Adobe Photoshop  | Lorem ipsum dolor sit amet, consectetur adipiscing elit, |\n.Adobe Illustrator | sed do eiusmod tempor incididunt ut labore et dolore |\n\n\n[表格 4][分類:other]\n· After Effects\n.Sketch App | magna ipsum dolor sit amet, consectetur adipiscing elit,\nsed do eiusmod tempor incididunt ut labore et dolore\nmagna\n----------------+-----------------------------------------\n"
+    }
+  ],
+  "summary": {
+    "total_pages": 1,
+    "total_lines": 68,
+    "total_tables": 4,
+    "total_text_blocks": 2,
+    "total_characters": 2746,
+    "processing_timestamp": 1753601440
+  },
+  "best_layout": "table"
+}
