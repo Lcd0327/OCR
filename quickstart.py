@@ -47,11 +47,10 @@ def process_single_file(processor: OCRProcessor, file_path: str):
             bullet_result = parser.parse(text_items)
         except Exception as e:
             bullet_result = None
-    # 比較兩種結果，選擇較佳者（以表格欄位數、條列數量等簡單規則）
+    # 比較兩種結果，選擇較佳者（條列區塊數大於1或條列數量大於5就優先條列式）
     if bullet_result and bullet_result.get("sections"):
-        table_count = len(result["pages"][0].get("tables", []))
         bullet_count = sum(len(s["bullets"]) for s in bullet_result["sections"])
-        if bullet_count > table_count * 2:
+        if len(bullet_result["sections"]) > 1 or bullet_count > 5:
             best_layout = "bullet"
     # 輸出
     print("\n=== OCR 結果 (最佳排版: {}型) ===".format("條列" if best_layout=="bullet" else "表格"))
