@@ -103,39 +103,66 @@ class TableDetector:
         return alignment_count
     
     def detect_tables(self, groups: List[List[TextItem]]) -> List[Dict[str, Any]]:
-        """檢測表格結構"""
+        """檢測表格結構，遇到分區標題或條列符號比例高的 group 直接略過表格判斷"""
         tables = []
         i = 0
-        
         while i < len(groups):
             current_group = groups[i]
-            
+            # 新增：若 group 內有多個分區標題或條列符號比例高，直接略過
+            section_title_count = 0
+            bullet_count = 0
+            for item in current_group:
+                txt = getattr(item, 'text', '')
+                # 利用 BulletResumeParser 的標題與條列判斷
+                from bullet_resume_parser import BulletResumeParser
+                parser = BulletResumeParser()
+                if parser._is_section_title(txt, item):
+                    section_title_count += 1
+                if parser._is_bullet(txt):
+                    bullet_count += 1
+            if section_title_count >= 1 or (len(current_group) > 0 and bullet_count / len(current_group) > 0.4):
+                i += 1
+                continue
+
             if len(current_group) >= 1:
                 table_rows = [current_group]
                 first_row = sorted(current_group, key=lambda x: x.x1)
                 column_positions = [item.x1 for item in first_row]
-                
+
                 j = i + 1
                 consecutive_matches = 0
                 gap_tolerance = 0
                 max_look_ahead = min(self.config.max_look_ahead, len(groups) - i)
-                
+
                 # 掃描後續行
                 while j < len(groups) and j < i + max_look_ahead:
                     next_group = groups[j]
-                    
+
+                    # 新增：若 group 內有多個分區標題或條列符號比例高，直接略過
+                    section_title_count2 = 0
+                    bullet_count2 = 0
+                    for item in next_group:
+                        txt = getattr(item, 'text', '')
+                        parser = BulletResumeParser()
+                        if parser._is_section_title(txt, item):
+                            section_title_count2 += 1
+                        if parser._is_bullet(txt):
+                            bullet_count2 += 1
+                    if section_title_count2 >= 1 or (len(next_group) > 0 and bullet_count2 / len(next_group) > 0.4):
+                        break
+
                     if len(next_group) >= 1:
                         next_row = sorted(next_group, key=lambda x: x.x1)
                         next_positions = [item.x1 for item in next_row]
-                        
+
                         # 檢查分隔詞
                         if self.has_separator_keyword(next_group) and len(table_rows) >= 2:
                             break
-                        
+
                         # 計算對齊度
                         alignment_count = self.calculate_alignment(column_positions, next_positions)
                         required_alignment = max(1, len(next_positions) * self.config.alignment_ratio)
-                        
+
                         if alignment_count >= required_alignment:
                             # 更新列位置
                             for next_pos in next_positions:
@@ -143,7 +170,7 @@ class TableDetector:
                                          for col_pos in column_positions):
                                     column_positions.append(next_pos)
                             column_positions.sort()
-                            
+
                             table_rows.append(next_group)
                             consecutive_matches += 1
                             gap_tolerance = 0
@@ -161,7 +188,7 @@ class TableDetector:
                             j += 1
                         else:
                             break
-                
+
                 # 判定是否為表格
                 min_rows_required = 2 if len(column_positions) >= 2 else 4
                 if len(table_rows) >= min_rows_required:
@@ -177,7 +204,6 @@ class TableDetector:
                     i += 1
             else:
                 i += 1
-        
         return tables
 
 
