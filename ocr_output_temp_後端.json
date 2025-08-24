@@ -1,6 +1,6 @@
 {
-  "file_path": "assets\\後端.jpg",
-  "timestamp": 1756037775,
+  "file_path": "temp_後端.jpg",
+  "timestamp": 1756016119,
   "total_pages": 1,
   "pages": [
     {
@@ -974,7 +974,6 @@
     "total_tables": 0,
     "total_text_blocks": 31,
     "total_characters": 983,
-    "processing_timestamp": 1756037775
-  },
-  "best_layout": "table"
+    "processing_timestamp": 1756016119
+  }
 }

@@ -6,6 +6,7 @@ import os
 
 from ocr_processor import OCRProcessor, OCRConfig, FileManager
 from bullet_resume_parser import BulletResumeParser
+from resume_structurer import structure_resume_from_ocr_json
 
 
 def print_file_info(file_path: str, index: int, total: int):
@@ -78,6 +79,8 @@ def process_single_file(processor: OCRProcessor, file_path: str):
         json_filename = FileManager.save_results(result)
     print(f"\n檔案已輸出: {json_filename}")
     print_statistics(result)
+    resume_data = structure_resume_from_ocr_json(result)
+    print(resume_data)
     if not success:
         error_msg = result.get('error', '未知錯誤')
         print(f"處理失敗: {error_msg}")
