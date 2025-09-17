@@ -9,8 +9,6 @@ def extract_resume_fields(ocr_json):
     blocks = page.get('text_blocks', [])
     tables = page.get('tables', [])
     result = {}
-    # ...existing code...
-    # (原本 extract_resume_fields 內容)
     basic_info = {}
     for block in blocks:
         for item in block['content']:
