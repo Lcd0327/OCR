@@ -1,6 +1,6 @@
 {
   "file_path": "assets\\8c00e5b121248d30e6ba0846e8701808d8713d35.jpg",
-  "timestamp": 1758707851,
+  "timestamp": 1758708110,
   "total_pages": 1,
   "pages": [
     {
@@ -729,7 +729,6 @@
     "total_tables": 3,
     "total_text_blocks": 20,
     "total_characters": 1025,
-    "processing_timestamp": 1758707851
-  },
-  "best_layout": "table"
+    "processing_timestamp": 1758708110
+  }
 }

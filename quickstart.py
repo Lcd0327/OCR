@@ -29,59 +29,11 @@ def print_statistics(ocr_result: dict):
 def process_single_file(processor: OCRProcessor, file_path: str):
     """處理單個檔案"""
     print("正在處理中...")
-    
     success, result = processor.process_file(file_path)
-    bullet_result = None
-    best_layout = "table"
-    # 嘗試條列式解析
     if success and result and result["pages"]:
-        try:
-            parser = BulletResumeParser()
-            # 取第一頁所有 text_items（需從 ocr_processor 取得原始 text_items，這裡假設有 result["pages"][0]["text_blocks"]）
-            text_blocks = result["pages"][0].get("text_blocks", [])
-            # 將所有 text_blocks 的 content 合併
-            text_items = []
-            for block in text_blocks:
-                for c in block.get("content", []):
-                    # 模擬 TextItem 結構
-                    text_items.append(type("TextItem", (), c)())
-            bullet_result = parser.parse(text_items)
-        except Exception as e:
-            bullet_result = None
-    # 比較兩種結果，選擇較佳者（條列區塊數大於1或條列數量大於5就優先條列式）
-    if bullet_result and bullet_result.get("sections"):
-        bullet_count = sum(len(s["bullets"]) for s in bullet_result["sections"])
-        if len(bullet_result["sections"]) > 1 or bullet_count > 5:
-            best_layout = "bullet"
-    # 輸出
-    print("\n=== OCR 結果 (最佳排版: {}型) ===".format("條列" if best_layout=="bullet" else "表格"))
-    all_text = ""
-    if best_layout == "table":
-        for page_data in result["pages"]:
-            page_num = page_data["page_number"]
-            page_text = page_data["full_text"]
-            print(f"\n頁面 {page_num}:")
-            print("-" * 50)
-            print(page_text)
-            all_text += f"=== 頁面 {page_num} ===\n{page_text}\n"
-        result["best_layout"] = "table"
         json_filename = FileManager.save_results(result)
+        print(f"\n檔案已輸出: {json_filename}")
     else:
-        # 條列式輸出
-        for i, section in enumerate(bullet_result["sections"], 1):
-            print(f"\n區塊 {i}: {section['title']}")
-            print("-" * 30)
-            for bullet in section["bullets"]:
-                print(f"• {bullet}")
-        # 也存成 JSON
-        result["best_layout"] = "bullet"
-        result["bullet_sections"] = bullet_result["sections"]
-        json_filename = FileManager.save_results(result)
-    print(f"\n檔案已輸出: {json_filename}")
-    print_statistics(result)
-    resume_data = structure_resume_from_ocr_json(result)
-    print(resume_data)
-    if not success:
         error_msg = result.get('error', '未知錯誤')
         print(f"處理失敗: {error_msg}")
 
