@@ -72,6 +72,15 @@
 
 ## 使用方式
 
+### 前置設定
+```python
+from dotenv import load_dotenv
+load_dotenv()
+    def __init__(self):
+        self.subscription_key = os.getenv("AZURE_SUBSCRIPTION_KEY") #create key in .env
+        self.endpoint = os.getenv("AZURE_ENDPOINT")#create endpoint in .env
+```
+
 ### 基本使用
 ```python
 from ocr_processor import OCRProcessor
