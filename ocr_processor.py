@@ -10,14 +10,17 @@ from typing import List, Dict, Any, Tuple
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from azure.cognitiveservices.vision.computervision.models import OperationStatusCodes
 from msrest.authentication import CognitiveServicesCredentials
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class OCRConfig:
     """OCR 配置類"""
     
     def __init__(self):
-        self.subscription_key = "15tkJaax9WyCBdoyOnboz9PDLSD4e0eyKNfMB7f5JMJa965wbPOfJQQJ99BGACYeBjFXJ3w3AAAAACOGOKiL"
-        self.endpoint = "https://lcdra0327.services.ai.azure.com/"
+        self.subscription_key = os.getenv("AZURE_SUBSCRIPTION_KEY")
+        self.endpoint = os.getenv("AZURE_ENDPOINT")
         self.supported_extensions = ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif', '.pdf']
         
         # 表格檢測參數
