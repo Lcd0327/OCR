@@ -1,6 +1,6 @@
 {
   "file_path": "assets\\dd7df4cfc15d7a615ee112596477761f.jpg",
-  "timestamp": 1758708113,
+  "timestamp": 1759310026,
   "total_pages": 1,
   "pages": [
     {
@@ -8,7 +8,6 @@
       "tables": [
         {
           "table_id": 1,
-          "position_y": 703.0,
           "data": [
             [
               "New York, USA\n+01 2345 6789 02",
@@ -19,14 +18,11 @@
               "sed do eiusmod tempor incididunt ut labore et dolore"
             ]
           ],
-          "column_count": 2,
-          "row_count": 2,
           "formatted_display": "New York, USA\n+01 2345 6789 02 | Lorem ipsum dolor sit amet, consectetur adipiscing elit,\nsed do eiusmod tempor incididunt ut labore et dolore\nmagna ipsum dolor sit amet, consectetur adipiscing elit,\n---------------------+-----------------------------------------\njacobscott@email.com | sed do eiusmod tempor incididunt ut labore et dolore",
           "category": "other"
         },
         {
           "table_id": 2,
-          "position_y": 1156.0,
           "data": [
             [
               "UX/UI Design",
@@ -53,14 +49,11 @@
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
             ]
           ],
-          "column_count": 2,
-          "row_count": 6,
           "formatted_display": "UX/UI Design       | Lorem ipsum dolor sit amet, consectetur adipiscing elit,\n-------------------+-----------------------------------------\nWeb Design         | sed do eiusmod tempor incididunt ut labore et dolore\n                   | magna ipsum dolor sit amet, consectetur adipiscing elit,\nProject Management | sed do eiusmod tempor incididunt ut labore et dolore\nMarket Research    | magna\nWireframing        | . .Lorem ipsum dolor sit amet, consectetur adipiscing elit,\nUsability Testing  | Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
           "category": "other"
         },
         {
           "table_id": 3,
-          "position_y": 1630.0,
           "data": [
             [
               "University Name",
@@ -71,22 +64,17 @@
               "sed do eiusmod tempor incididunt ut labore et dolore\nmagna ipsum dolor sit amet, consectetur adipiscing elit,"
             ]
           ],
-          "column_count": 2,
-          "row_count": 2,
           "formatted_display": "University Name | Lorem ipsum dolor sit amet, consectetur adipiscing elit,\n----------------+-----------------------------------------\n2020 - 2023     | sed do eiusmod tempor incididunt ut labore et dolore\n                | magna ipsum dolor sit amet, consectetur adipiscing elit,",
           "category": "other"
         },
         {
           "table_id": 4,
-          "position_y": 1780.0,
           "data": [
             [
               "University Name\n2020 - 2023",
               "magna\n..Lorem ipsum dolor sit amet, consectetur adipiscing elit,\nLorem ipsum dolor sit amet, consectetur adipiscing elit,"
             ]
           ],
-          "column_count": 2,
-          "row_count": 1,
           "formatted_display": "University Name\n2020 - 2023 | magna\n..Lorem ipsum dolor sit amet, consectetur adipiscing elit,\nLorem ipsum dolor sit amet, consectetur adipiscing elit,\n----------------+-----------------------------------------",
           "category": "other"
         }
@@ -94,451 +82,214 @@
       "text_blocks": [
         {
           "block_id": 1,
-          "position_y": 177.0,
           "content": [
             {
-              "text": "YOUR NAME",
-              "position": {
-                "x1": 116.0,
-                "y1": 177.0,
-                "x2": 796.0,
-                "y2": 263.0
-              }
+              "text": "YOUR NAME"
             }
           ]
         },
         {
           "block_id": 2,
-          "position_y": 288.0,
           "content": [
             {
-              "text": "PRODUCT DESIGNER, ANALYTICS",
-              "position": {
-                "x1": 115.0,
-                "y1": 288.0,
-                "x2": 673.0,
-                "y2": 326.0
-              }
+              "text": "PRODUCT DESIGNER, ANALYTICS"
             }
           ]
         },
         {
           "block_id": 3,
-          "position_y": 562.0,
           "content": [
             {
-              "text": "PROFILE",
-              "position": {
-                "x1": 651.0,
-                "y1": 562.0,
-                "x2": 925.0,
-                "y2": 603.0
-              }
+              "text": "PROFILE"
             }
           ]
         },
         {
           "block_id": 4,
-          "position_y": 953.0,
           "content": [
             {
-              "text": "EXPERIEN",
-              "position": {
-                "x1": 656.0,
-                "y1": 953.0,
-                "x2": 973.0,
-                "y2": 995.0
-              }
+              "text": "EXPERIEN"
             },
             {
-              "text": "SKILLS",
-              "position": {
-                "x1": 119.0,
-                "y1": 954.0,
-                "x2": 338.0,
-                "y2": 997.0
-              }
+              "text": "SKILLS"
             }
           ]
         },
         {
           "block_id": 5,
-          "position_y": 1024.0,
           "content": [
             {
-              "text": "PROFFESSIONAL",
-              "position": {
-                "x1": 118.0,
-                "y1": 1024.0,
-                "x2": 403.0,
-                "y2": 1058.0
-              }
+              "text": "PROFFESSIONAL"
             },
             {
-              "text": "2020 -",
-              "position": {
-                "x1": 1433.0,
-                "y1": 1025.0,
-                "x2": 1545.0,
-                "y2": 1061.0
-              }
+              "text": "2020 -"
             },
             {
-              "text": "JOB TITLE HERE",
-              "position": {
-                "x1": 652.0,
-                "y1": 1028.0,
-                "x2": 907.0,
-                "y2": 1060.0
-              }
+              "text": "JOB TITLE HERE"
             },
             {
-              "text": ".",
-              "position": {
-                "x1": 1386.0,
-                "y1": 1029.0,
-                "x2": 1432.0,
-                "y2": 1058.0
-              }
+              "text": "."
             }
           ]
         },
         {
           "block_id": 6,
-          "position_y": 1097.0,
           "content": [
             {
-              "text": "COMPANY NAME",
-              "position": {
-                "x1": 654.0,
-                "y1": 1097.0,
-                "x2": 942.0,
-                "y2": 1132.0
-              }
+              "text": "COMPANY NAME"
             },
             {
-              "text": "Graphic Design",
-              "position": {
-                "x1": 165.0,
-                "y1": 1102.0,
-                "x2": 405.0,
-                "y2": 1140.0
-              }
+              "text": "Graphic Design"
             }
           ]
         },
         {
           "block_id": 7,
-          "position_y": 1498.0,
           "content": [
             {
-              "text": "2020 -",
-              "position": {
-                "x1": 1429.0,
-                "y1": 1498.0,
-                "x2": 1544.0,
-                "y2": 1529.0
-              }
+              "text": "2020 -"
             },
             {
-              "text": ".",
-              "position": {
-                "x1": 1388.0,
-                "y1": 1499.0,
-                "x2": 1427.0,
-                "y2": 1528.0
-              }
+              "text": "."
             },
             {
-              "text": "JOB TITLE HERE",
-              "position": {
-                "x1": 653.0,
-                "y1": 1501.0,
-                "x2": 906.0,
-                "y2": 1531.0
-              }
+              "text": "JOB TITLE HERE"
             }
           ]
         },
         {
           "block_id": 8,
-          "position_y": 1529.0,
           "content": [
             {
-              "text": "EDUCATION",
-              "position": {
-                "x1": 118.0,
-                "y1": 1529.0,
-                "x2": 486.0,
-                "y2": 1569.0
-              }
+              "text": "EDUCATION"
             }
           ]
         },
         {
           "block_id": 9,
-          "position_y": 1568.0,
           "content": [
             {
-              "text": "COMPANY NAME",
-              "position": {
-                "x1": 654.0,
-                "y1": 1568.0,
-                "x2": 942.0,
-                "y2": 1601.0
-              }
+              "text": "COMPANY NAME"
             }
           ]
         },
         {
           "block_id": 10,
-          "position_y": 1605.0,
           "content": [
             {
-              "text": "DEGREE TITLE",
-              "position": {
-                "x1": 168.0,
-                "y1": 1605.0,
-                "x2": 415.0,
-                "y2": 1634.0
-              }
+              "text": "DEGREE TITLE"
             }
           ]
         },
         {
           "block_id": 11,
-          "position_y": 1744.0,
           "content": [
             {
-              "text": "DEGREE TITLE",
-              "position": {
-                "x1": 171.0,
-                "y1": 1744.0,
-                "x2": 418.0,
-                "y2": 1777.0
-              }
+              "text": "DEGREE TITLE"
             },
             {
-              "text": "sed do eiusmod tempor incididunt ut labore et dolore",
-              "position": {
-                "x1": 657.0,
-                "y1": 1745.0,
-                "x2": 1475.0,
-                "y2": 1777.0
-              }
+              "text": "sed do eiusmod tempor incididunt ut labore et dolore"
             }
           ]
         },
         {
           "block_id": 12,
-          "position_y": 1934.0,
           "content": [
             {
-              "text": "EXPERTISE",
-              "position": {
-                "x1": 117.0,
-                "y1": 1934.0,
-                "x2": 470.0,
-                "y2": 1975.0
-              }
+              "text": "EXPERTISE"
             }
           ]
         },
         {
           "block_id": 13,
-          "position_y": 1960.0,
           "content": [
             {
-              "text": "JOB TITLE HERE",
-              "position": {
-                "x1": 654.0,
-                "y1": 1960.0,
-                "x2": 905.0,
-                "y2": 1993.0
-              }
+              "text": "JOB TITLE HERE"
             },
             {
-              "text": "2020 -",
-              "position": {
-                "x1": 1433.0,
-                "y1": 1960.0,
-                "x2": 1544.0,
-                "y2": 1990.0
-              }
+              "text": "2020 -"
             },
             {
-              "text": ".",
-              "position": {
-                "x1": 1388.0,
-                "y1": 1961.0,
-                "x2": 1429.0,
-                "y2": 1993.0
-              }
+              "text": "."
             }
           ]
         },
         {
           "block_id": 14,
-          "position_y": 2008.0,
           "content": [
             {
-              "text": "TECHNICAL",
-              "position": {
-                "x1": 118.0,
-                "y1": 2008.0,
-                "x2": 312.0,
-                "y2": 2039.0
-              }
+              "text": "TECHNICAL"
             },
             {
-              "text": "COMPANY NAME",
-              "position": {
-                "x1": 654.0,
-                "y1": 2020.0,
-                "x2": 944.0,
-                "y2": 2053.0
-              }
+              "text": "COMPANY NAME"
             }
           ]
         },
         {
           "block_id": 15,
-          "position_y": 2063.0,
           "content": [
             {
-              "text": "· Adobe Photoshop",
-              "position": {
-                "x1": 114.0,
-                "y1": 2063.0,
-                "x2": 439.0,
-                "y2": 2096.0
-              }
+              "text": "· Adobe Photoshop"
             }
           ]
         },
         {
           "block_id": 16,
-          "position_y": 2082.0,
           "content": [
             {
-              "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
-              "position": {
-                "x1": 659.0,
-                "y1": 2082.0,
-                "x2": 1514.0,
-                "y2": 2118.0
-              }
+              "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
             }
           ]
         },
         {
           "block_id": 17,
-          "position_y": 2114.0,
           "content": [
             {
-              "text": "Adobe Illustrator",
-              "position": {
-                "x1": 159.0,
-                "y1": 2114.0,
-                "x2": 427.0,
-                "y2": 2149.0
-              }
+              "text": "Adobe Illustrator"
             },
             {
-              "text": ".",
-              "position": {
-                "x1": 116.0,
-                "y1": 2119.0,
-                "x2": 150.0,
-                "y2": 2144.0
-              }
+              "text": "."
             },
             {
-              "text": "sed do eiusmod tempor incididunt ut labore et dolore",
-              "position": {
-                "x1": 652.0,
-                "y1": 2121.0,
-                "x2": 1480.0,
-                "y2": 2154.0
-              }
+              "text": "sed do eiusmod tempor incididunt ut labore et dolore"
             }
           ]
         },
         {
           "block_id": 18,
-          "position_y": 2160.0,
           "content": [
             {
-              "text": "magna ipsum dolor sit amet, consectetur adipiscing elit,",
-              "position": {
-                "x1": 653.0,
-                "y1": 2160.0,
-                "x2": 1519.0,
-                "y2": 2194.0
-              }
+              "text": "magna ipsum dolor sit amet, consectetur adipiscing elit,"
             },
             {
-              "text": "· After Effects",
-              "position": {
-                "x1": 116.0,
-                "y1": 2168.0,
-                "x2": 360.0,
-                "y2": 2200.0
-              }
+              "text": "· After Effects"
             }
           ]
         },
         {
           "block_id": 19,
-          "position_y": 2198.0,
           "content": [
             {
-              "text": "sed do eiusmod tempor incididunt ut labore et dolore",
-              "position": {
-                "x1": 653.0,
-                "y1": 2198.0,
-                "x2": 1479.0,
-                "y2": 2232.0
-              }
+              "text": "sed do eiusmod tempor incididunt ut labore et dolore"
             }
           ]
         },
         {
           "block_id": 20,
-          "position_y": 2220.0,
           "content": [
             {
-              "text": "Sketch App",
-              "position": {
-                "x1": 154.0,
-                "y1": 2220.0,
-                "x2": 343.0,
-                "y2": 2258.0
-              }
+              "text": "Sketch App"
             },
             {
-              "text": ".",
-              "position": {
-                "x1": 117.0,
-                "y1": 2225.0,
-                "x2": 153.0,
-                "y2": 2251.0
-              }
+              "text": "."
             }
           ]
         },
         {
           "block_id": 21,
-          "position_y": 2240.0,
           "content": [
             {
-              "text": "magna",
-              "position": {
-                "x1": 655.0,
-                "y1": 2240.0,
-                "x2": 763.0,
-                "y2": 2268.0
-              }
+              "text": "magna"
             }
           ]
         }
@@ -546,10 +297,8 @@
       "statistics": {
         "total_tables": 4,
         "total_text_blocks": 21,
-        "total_lines": 68,
-        "page_text_length": 2070
-      },
-      "full_text": "YOUR NAME\n\nPRODUCT DESIGNER, ANALYTICS\n\nPROFILE\n\n\n[表格 1][分類:other]\nNew York, USA\n+01 2345 6789 02 | Lorem ipsum dolor sit amet, consectetur adipiscing elit,\nsed do eiusmod tempor incididunt ut labore et dolore\nmagna ipsum dolor sit amet, consectetur adipiscing elit,\n---------------------+-----------------------------------------\njacobscott@email.com | sed do eiusmod tempor incididunt ut labore et dolore\n\nEXPERIEN\nSKILLS\n\nPROFFESSIONAL\n2020 -\nJOB TITLE HERE\n.\n\nCOMPANY NAME\nGraphic Design\n\n\n[表格 2][分類:other]\nUX/UI Design       | Lorem ipsum dolor sit amet, consectetur adipiscing elit,\n-------------------+-----------------------------------------\nWeb Design         | sed do eiusmod tempor incididunt ut labore et dolore\n                   | magna ipsum dolor sit amet, consectetur adipiscing elit,\nProject Management | sed do eiusmod tempor incididunt ut labore et dolore\nMarket Research    | magna\nWireframing        | . .Lorem ipsum dolor sit amet, consectetur adipiscing elit,\nUsability Testing  | Lorem ipsum dolor sit amet, consectetur adipiscing elit,\n\n2020 -\n.\nJOB TITLE HERE\nEDUCATION\nCOMPANY NAME\nDEGREE TITLE\n\n[表格 3][分類:other]\nUniversity Name | Lorem ipsum dolor sit amet, consectetur adipiscing elit,\n----------------+-----------------------------------------\n2020 - 2023     | sed do eiusmod tempor incididunt ut labore et dolore\n                | magna ipsum dolor sit amet, consectetur adipiscing elit,\n\nDEGREE TITLE\nsed do eiusmod tempor incididunt ut labore et dolore\n\n[表格 4][分類:other]\nUniversity Name\n2020 - 2023 | magna\n..Lorem ipsum dolor sit amet, consectetur adipiscing elit,\nLorem ipsum dolor sit amet, consectetur adipiscing elit,\n----------------+-----------------------------------------\n\nEXPERTISE\nJOB TITLE HERE\n2020 -\n.\nTECHNICAL\nCOMPANY NAME\n\n· Adobe Photoshop\nLorem ipsum dolor sit amet, consectetur adipiscing elit,\nAdobe Illustrator\n.\nsed do eiusmod tempor incididunt ut labore et dolore\nmagna ipsum dolor sit amet, consectetur adipiscing elit,\n· After Effects\nsed do eiusmod tempor incididunt ut labore et dolore\nSketch App\n.\nmagna\n"
+        "total_lines": 68
+      }
     }
   ],
   "summary": {
@@ -557,7 +306,6 @@
     "total_lines": 68,
     "total_tables": 4,
     "total_text_blocks": 21,
-    "total_characters": 2084,
-    "processing_timestamp": 1758708113
+    "processing_timestamp": 1759310026
   }
 }

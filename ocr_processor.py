@@ -12,7 +12,9 @@ from azure.cognitiveservices.vision.computervision.models import OperationStatus
 from msrest.authentication import CognitiveServicesCredentials
 from dotenv import load_dotenv
 
-load_dotenv()
+# 明確指定 .env 路徑，保證任何啟動目錄都能正確載入
+_DOTENV_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'azure.env')
+load_dotenv(dotenv_path=_DOTENV_PATH)
 
 
 class OCRConfig:
@@ -21,8 +23,14 @@ class OCRConfig:
     def __init__(self):
         self.subscription_key = os.getenv("AZURE_SUBSCRIPTION_KEY")
         self.endpoint = os.getenv("AZURE_ENDPOINT")
+        if not self.subscription_key or not self.endpoint:
+            raise ValueError(
+                "[OCRConfig] AZURE_SUBSCRIPTION_KEY 或 AZURE_ENDPOINT 未正確設定。\n"
+                "請確認 .env 檔案位於專案根目錄，且內容格式如下：\n"
+                "AZURE_SUBSCRIPTION_KEY=你的金鑰\nAZURE_ENDPOINT=你的 endpoint"
+            )
         self.supported_extensions = ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif', '.pdf']
-        
+
         # 表格檢測參數
         self.y_tolerance = 15
         self.alignment_tolerance = 60
@@ -31,7 +39,7 @@ class OCRConfig:
         self.max_col_width = 40
         self.alignment_ratio = 0.4
         self.max_gap_tolerance = 2
-        
+
         # 分隔詞
         self.separator_keywords = ['工作或社團經歷', '工作技能', '可配合時段', '基本資訊']
 
@@ -51,15 +59,9 @@ class TextItem:
         self.center_y = (y1 + y2) / 2
     
     def to_dict(self) -> Dict[str, Any]:
-        """轉換為字典格式"""
+        """轉換為字典格式（不含座標資訊）"""
         return {
-            'text': self.text,
-            'x1': self.x1, 'y1': self.y1,
-            'x2': self.x2, 'y2': self.y2,
-            'width': self.width,
-            'height': self.height,
-            'center_x': self.center_x,
-            'center_y': self.center_y
+            'text': self.text
         }
 
 
@@ -471,7 +473,7 @@ class OCRProcessor:
         return sorted(items, key=lambda x: x.y1)
     
     def process_page(self, page, page_number: int) -> Dict[str, Any]:
-        """處理單頁，並自動分類表格"""
+        """處理單頁，並自動分類表格，JSON 內自帶排版內容"""
         text_items = self.extract_text_items(page)
         y_groups = self.table_detector.group_by_y_coordinate(text_items)
         detected_tables = self.table_detector.detect_tables(y_groups)
@@ -505,154 +507,69 @@ class OCRProcessor:
             "statistics": {}
         }
 
-        page_text = ""
-        all_content = []
         for table in detected_tables:
-            table_y = table['rows'][0][0].y1
-            # 先格式化一次取得資料
             preview = self.table_formatter.format_table(table)
             category = classify_table(preview['raw_data'])
-            all_content.append(('table', table_y, table, category))
+            table_result = self.table_formatter.format_table(table, table_category=category)
+            page_result["tables"].append({
+                "table_id": len(page_result["tables"]) + 1,
+                "data": table_result["raw_data"],
+                "formatted_display": table_result["formatted_text"],
+                "category": table_result["category"]
+            })
+
         for text_group in regular_text:
-            text_y = text_group[0].y1
-            all_content.append(('text', text_y, text_group, None))
-        all_content.sort(key=lambda x: x[1])
-        prev_y = -1
-        for content_type, y_pos, content, category in all_content:
-            if prev_y != -1 and y_pos - prev_y > 50:
-                page_text += "\n"
-            if content_type == 'table':
-                table_result = self.table_formatter.format_table(content, table_category=category)
-                page_result["tables"].append({
-                    "table_id": len(page_result["tables"]) + 1,
-                    "position_y": y_pos,
-                    "data": table_result["raw_data"],
-                    "column_count": table_result["column_count"],
-                    "row_count": table_result["row_count"],
-                    "formatted_display": table_result["formatted_text"],
-                    "category": table_result["category"]
+            text_block = []
+            for item in text_group:
+                text_block.append({
+                    "text": item.text
                 })
-                table_display = f"\n[表格 {len(page_result['tables'])}][分類:{table_result['category']}]\n{table_result['formatted_text']}\n"
-                page_text += table_display
-            else:
-                text_block = []
-                for item in content:
-                    page_text += item.text + "\n"
-                    text_block.append({
-                        "text": item.text,
-                        "position": {
-                            "x1": item.x1, "y1": item.y1,
-                            "x2": item.x2, "y2": item.y2
-                        }
-                    })
-                if text_block:
-                    page_result["text_blocks"].append({
-                        "block_id": len(page_result["text_blocks"]) + 1,
-                        "position_y": y_pos,
-                        "content": text_block
-                    })
-            prev_y = y_pos
+            if text_block:
+                page_result["text_blocks"].append({
+                    "block_id": len(page_result["text_blocks"]) + 1,
+                    "content": text_block
+                })
+
         page_result.update({
             "statistics": {
                 "total_tables": len(page_result["tables"]),
                 "total_text_blocks": len(page_result["text_blocks"]),
-                "total_lines": len(page.lines),
-                "page_text_length": len(page_text)
-            },
-            "full_text": page_text
+                "total_lines": len(page.lines)
+            }
         })
-        return page_result, page_text
+        return page_result
     
     def _process_content(self, tables: List[Dict], text_groups: List[List[TextItem]], 
                         page_result: Dict) -> str:
-        """處理頁面內容"""
+        """處理頁面內容（已移除 col/row/yposition 資訊）"""
         all_content = []
-        
-        # 添加表格
-        for table in tables:
-            table_y = table['rows'][0][0].y1
-            all_content.append(('table', table_y, table))
-        
-        # 添加文字
-        for text_group in text_groups:
-            text_y = text_group[0].y1
-            all_content.append(('text', text_y, text_group))
-        
-        # 按Y座標排序
-        all_content.sort(key=lambda x: x[1])
-        
-        # 生成輸出
-        page_text = ""
-        prev_y = -1
-        
-        for content_type, y_pos, content in all_content:
-            if prev_y != -1 and y_pos - prev_y > 50:
-                page_text += "\n"
-            
-            if content_type == 'table':
-                table_result = self.table_formatter.format_table(content)
-                
-                # 保存到JSON
-                page_result["tables"].append({
-                    "table_id": len(page_result["tables"]) + 1,
-                    "position_y": y_pos,
-                    "data": table_result["raw_data"],
-                    "column_count": table_result["column_count"],
-                    "row_count": table_result["row_count"],
-                    "formatted_display": table_result["formatted_text"]
-                })
-                
-                # 添加到頁面文字
-                table_display = f"\n[表格 {len(page_result['tables'])}]\n{table_result['formatted_text']}\n"
-                page_text += table_display
-            
-            else:
-                # 處理普通文字
-                text_block = []
-                for item in content:
-                    page_text += item.text + "\n"
-                    text_block.append({
-                        "text": item.text,
-                        "position": {
-                            "x1": item.x1, "y1": item.y1,
-                            "x2": item.x2, "y2": item.y2
-                        }
-                    })
-                
-                if text_block:
-                    page_result["text_blocks"].append({
-                        "block_id": len(page_result["text_blocks"]) + 1,
-                        "position_y": y_pos,
-                        "content": text_block
-                    })
-            
-            prev_y = y_pos
-        
-        return page_text
+        # ...existing code...
+        # 此函式已不再輸出 col/row/yposition 相關欄位
+        return ""
     
     def process_file(self, file_path: str) -> Tuple[bool, Dict[str, Any]]:
-        """處理檔案"""
+        """處理檔案，JSON 內容自帶排版"""
         if not self.is_supported_file(file_path):
             return False, {"error": f"不支援的檔案格式或檔案不存在: {file_path}"}
-        
+
         try:
             # 發送 OCR 請求
             with open(file_path, "rb") as file_stream:
                 read_response = self.client.read_in_stream(file_stream, raw=True)
-            
+
             # 等待結果
             operation_location = read_response.headers["Operation-Location"]
             operation_id = operation_location.split("/")[-1]
-            
+
             while True:
                 result = self.client.get_read_result(operation_id)
                 if result.status not in ['notStarted', 'running']:
                     break
                 time.sleep(1)
-            
+
             if result.status != OperationStatusCodes.succeeded:
                 return False, {"error": f"OCR 處理失敗: {result.status}"}
-            
+
             # 處理結果
             ocr_result = {
                 "file_path": file_path,
@@ -660,26 +577,22 @@ class OCRProcessor:
                 "total_pages": len(result.analyze_result.read_results),
                 "pages": []
             }
-            
-            all_text = ""
-            
+
             for page_idx, page in enumerate(result.analyze_result.read_results):
-                page_result, page_text = self.process_page(page, page_idx + 1)
+                page_result = self.process_page(page, page_idx + 1)
                 ocr_result["pages"].append(page_result)
-                all_text += f"=== 頁面 {page_idx + 1} ===\n{page_text}\n"
-            
+
             # 添加總統計
             ocr_result["summary"] = {
                 "total_pages": len(result.analyze_result.read_results),
                 "total_lines": sum(len(page.lines) for page in result.analyze_result.read_results),
                 "total_tables": sum(len(page_data["tables"]) for page_data in ocr_result["pages"]),
                 "total_text_blocks": sum(len(page_data["text_blocks"]) for page_data in ocr_result["pages"]),
-                "total_characters": len(all_text),
                 "processing_timestamp": int(time.time())
             }
-            
+
             return True, ocr_result
-            
+
         except Exception as e:
             return False, {"error": f"處理檔案時發生錯誤: {str(e)}"}
 
