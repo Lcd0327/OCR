@@ -1,0 +1,88 @@
+{
+  "key_points": [
+    {
+      "text": "UC",
+      "label": "GPE"
+    },
+    {
+      "text": "ANALYTICS",
+      "label": "ORG"
+    },
+    {
+      "text": "SKILLS",
+      "label": "ORG"
+    },
+    {
+      "text": "2020",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "NAME",
+      "label": "LANGUAGE"
+    },
+    {
+      "text": "Design",
+      "label": "PERSON"
+    },
+    {
+      "text": "2020",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "EXPERTISE",
+      "label": "ORG"
+    },
+    {
+      "text": "2020",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "UX/UI Design",
+      "label": "ORG"
+    },
+    {
+      "text": "Design",
+      "label": "PRODUCT"
+    },
+    {
+      "text": "Project Management",
+      "label": "ORG"
+    },
+    {
+      "text": "Market",
+      "label": "NORP"
+    },
+    {
+      "text": "Lorem",
+      "label": "PERSON"
+    },
+    {
+      "text": "Usability",
+      "label": "NORP"
+    },
+    {
+      "text": "University Name",
+      "label": "ORG"
+    },
+    {
+      "text": "Lorem",
+      "label": "PRODUCT"
+    },
+    {
+      "text": "2020",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "University Name",
+      "label": "ORG"
+    },
+    {
+      "text": "2020",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "Lorem",
+      "label": "PRODUCT"
+    }
+  ]
+}

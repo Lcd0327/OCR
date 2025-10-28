@@ -10,16 +10,18 @@ def extract_entities(text):
 
 def extract_resume_fields(ocr_json):
     """
-    舊版萃取函式，保留原有欄位結構
+    萃取函式，將 OCR JSON 轉成 resume dict，僅萃取常見欄位
     """
     page = ocr_json['pages'][0]
     blocks = page.get('text_blocks', [])
     tables = page.get('tables', [])
     result = {}
     basic_info = {}
+
     for block in blocks:
         for item in block['content']:
-            txt = item['text']
+            txt = item.get('value') or item.get('text') or ''
+
             if '姓名' in txt or '中文姓名' in txt:
                 basic_info['姓名'] = txt
             elif '羅馬拼音' in txt:
@@ -48,57 +50,12 @@ def extract_resume_fields(ocr_json):
                 basic_info['預定可到職'] = txt
     if basic_info:
         result['基本資料'] = basic_info
-    for block in blocks:
-        for item in block['content']:
-            if '應徵職務' in item['text']:
-                result['應徵職務'] = item['text']
-    for block in blocks:
-        for item in block['content']:
-            if '語言能力' in item['text'] or '語言程度' in item['text']:
-                result['語言能力'] = item['text']
-    education = []
-    for block in blocks:
-        for item in block['content']:
-            if '學校' in item['text'] or '科系' in item['text'] or '學位' in item['text']:
-                education.append(item['text'])
-    if education:
-        result['教育背景'] = education
-    work_exp = []
-    for block in blocks:
-        for item in block['content']:
-            if '工作經歷' in item['text'] or '工作或社團經歷' in item['text']:
-                work_exp.append(item['text'])
-    if work_exp:
-        result['工作經歷'] = work_exp
-    skills = []
-    for table in tables:
-        if table.get('category') == 'skills':
-            for row in table['data']:
-                skills.append(row[0])
-    if skills:
-        result['技能與專長'] = skills
-    for block in blocks:
-        for item in block['content']:
-            if '電腦能力' in item['text'] or '電腦技能' in item['text']:
-                result['電腦技能'] = item['text']
-    for block in blocks:
-        for item in block['content']:
-            if '專業證照' in item['text']:
-                result['專業證照'] = item['text']
-    for block in blocks:
-        for item in block['content']:
-            if '駕照' in item['text']:
-                result['駕照'] = item['text']
-    for block in blocks:
-        for item in block['content']:
-            if '可配合時段' in item['text']:
-                result['可配合時段'] = item['text']
     return result
 
 
 def structure_resume_from_ocr_json(ocr_json):
     """
-    新版結構化函式，將 OCR JSON 直接轉成 resume dict
+    新版結構化函式，將 OCR JSON 直接轉成 resume dict，支援 key-value 配對
     """
     page = ocr_json['pages'][0]
     blocks = page.get('text_blocks', [])
@@ -113,97 +70,125 @@ def structure_resume_from_ocr_json(ocr_json):
         'birth_date': ['出生日期', '生日', 'birth', '出生'],
         'education': ['最高學歷', '學歷', '學校', '科系', 'education', 'degree'],
         'job_title': ['應徵職務', '職稱', 'job', 'title', '申請職位'],
+        'gender': ['性別', 'gender'],
+        'age': ['年齡', 'age'],
+        'language': ['語言能力', '語言', 'language'],
+        'license': ['駕照', 'license'],
+        'certificate': ['證照', 'certificate', '專業證照'],
+        'available_time': ['可配合時段', '時段', '時間'],
+        'self_intro': ['自傳', '簡介', '自我介紹'],
+        'work_experience': ['工作經歷', '工作或社團經歷', '經歷', 'experience'],
+        'skills': ['技能', '專長', '能力'],
+        'computer_skills': ['電腦能力', '電腦技能', 'computer', 'Excel', 'Word'],
     }
-    # 基本資料萃取
+
+    # NLP 分析重點
+    all_text = []
     for block in blocks:
-        for item in block['content']:
-            txt = item['text']
+        for item in block.get('content', []):
+            key = item.get('key', '')
+            value = item.get('value', '')
+            if key:
+                all_text.append(key)
+            if value:
+                all_text.append(value)
+    for table in tables:
+        for row in table.get('data', []):
+            all_text.extend(row)
+    full_text = '\n'.join(all_text)
+    doc = nlp(full_text)
+    key_points = []
+    for ent in doc.ents:
+        key_points.append({'text': ent.text, 'label': ent.label_})
+
+    # 基本資料萃取（用 key 來判斷）
+    for block in blocks:
+        for item in block.get('content', []):
+            key = item.get('key', '')
+            value = item.get('value', '')
             for field, kw_list in keywords.items():
-                for kw in kw_list:
-                    if kw in txt:
-                        # 取出欄位內容
-                        value = txt.replace(kw, '').replace(':', '').strip()
-                        # 若內容為空，嘗試取下一個 item
-                        if not value:
-                            idx = block['content'].index(item)
-                            if idx + 1 < len(block['content']):
-                                next_txt = block['content'][idx+1]['text'].strip()
-                                if next_txt and not any(k in next_txt for k in kw_list):
-                                    value = next_txt
+                if any(kw in key for kw in kw_list):
+                    # 多欄位支援（如多個語言、證照等）
+                    if field in ['language', 'certificate', 'skills', 'computer_skills']:
+                        if value:
+                            resume.setdefault(field, []).append(value)
+                    elif field == 'work_experience':
+                        resume.setdefault(field, []).append(value)
+                    else:
                         resume[field] = value
-    # 技能
+
+    # 技能（表格）
     skills = []
     for table in tables:
         if table.get('category') == 'skills':
-            for row in table['data']:
-                skills.append(row[0])
+            for row in table.get('data', []):
+                if row and row[0]:
+                    skills.append(row[0])
     if skills:
-        resume['skills'] = skills
-    # 工作經歷
-    work_experience = []
-    work_keywords = ['工作經歷', '工作或社團經歷', '經歷', 'experience']
-    for block in blocks:
-        org, title, period, desc = None, None, None, None
-        for item in block['content']:
-            txt = item['text']
-            if any(kw in txt for kw in ['公司', '組織', '餐廳', '社', 'organization']):
-                org = txt
-            if any(kw in txt for kw in ['職稱', 'title', '服務生', '活動長']):
-                title = txt
-            if any(kw in txt for kw in ['年', '月', '日', 'period', '時間', '至']):
-                period = txt
-            if any(kw in txt for kw in ['負責', '工作內容', '描述', 'desc', 'summary']):
-                desc = txt
-        if org and title and period:
-            work_experience.append({
-                'organization': org,
-                'title': title,
-                'period': period,
-                'description': desc or ''
-            })
-    if work_experience:
-        resume['work_experience'] = work_experience
-    # 語言能力
-    language_keywords = ['語言能力', '語言', 'language']
-    for block in blocks:
-        for item in block['content']:
-            txt = item['text']
-            if any(kw in txt for kw in language_keywords):
-                langs = [lang for lang in txt.replace('語言能力', '').replace('語言', '').replace(':', '').split('、') if lang]
-                resume['languages'] = langs
-    # 電腦技能
-    computer_keywords = ['電腦能力', '電腦技能', 'computer', 'Excel', 'Word']
-    for block in blocks:
-        for item in block['content']:
-            txt = item['text']
-            if any(kw in txt for kw in computer_keywords):
-                skills_list = [skill for skill in txt.replace('擅長', '').replace('電腦能力', '').replace('電腦技能', '').replace(':', '').split('、') if skill]
-                resume['computer_skills'] = skills_list
-    # 證照
-    certificate_keywords = ['證照', 'license', 'certificate', '丙級', '蛋糕']
-    for block in blocks:
-        for item in block['content']:
-            txt = item['text']
-            if any(kw in txt for kw in certificate_keywords):
-                certs = [cert for cert in txt.replace('專業證照', '').replace('證照', '').replace(':', '').split('、') if cert]
-                resume['certificates'] = certs
-            if '駕照' in txt:
-                resume['license'] = [txt.replace('駕照', '').strip()]
-    # 可配合時段
+        resume.setdefault('skills', []).extend(skills)
+
+    # 工作經歷（表格）
+    work_exp = []
+    for table in tables:
+        if table.get('category') == 'work_experience':
+            for row in table.get('data', []):
+                work_exp.append(row)
+    if work_exp:
+        resume['work_experience_table'] = work_exp
+
+    # 語言能力（表格）
+    languages = []
+    for table in tables:
+        if table.get('category') == 'language':
+            for row in table.get('data', []):
+                languages.append(row)
+    if languages:
+        resume['languages_table'] = languages
+
+    # 電腦技能（表格）
+    computer_skills = []
+    for table in tables:
+        if table.get('category') == 'computer_skills':
+            for row in table.get('data', []):
+                computer_skills.append(row)
+    if computer_skills:
+        resume['computer_skills_table'] = computer_skills
+
+    # 證照（表格）
+    certificates = []
+    for table in tables:
+        if table.get('category') == 'certificate':
+            for row in table.get('data', []):
+                certificates.append(row)
+    if certificates:
+        resume['certificates_table'] = certificates
+
+    # 可配合時段（表格）
     available_times = {}
     days = ['週一', '週二', '週三', '週四', '週五', '週六', '週日']
     for block in blocks:
-        for item in block['content']:
-            txt = item['text']
+        for item in block.get('content', []):
+            key = item.get('key', '')
+            value = item.get('value', '')
             for day in days:
-                if day in txt:
-                    # 嘗試找時間
-                    time_str = None
-                    for t_item in block['content']:
-                        if any(h in t_item['text'] for h in ['10:00', '09:00', '18:00', '19:00']):
-                            time_str = t_item['text']
-                    available_times[day] = time_str or ''
+                if day in key:
+                    available_times[day] = value
     if available_times:
         resume['available_times'] = available_times
-    return resume
 
+    # 自傳/自我介紹
+    intros = []
+    for block in blocks:
+        for item in block.get('content', []):
+            key = item.get('key', '')
+            value = item.get('value', '')
+            if any(kw in key for kw in keywords['self_intro']):
+                intros.append(value)
+    if intros:
+        resume['self_intro'] = '\n'.join(intros)
+
+    # 加入 NLP 分析重點
+    if key_points:
+        resume['key_points'] = key_points
+
+    return resume

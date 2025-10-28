@@ -1,0 +1,112 @@
+{
+  "birth_date": "年齡",
+  "address": "新北市 汐止區",
+  "language": [
+    "相關證照名稱"
+  ],
+  "skills": [
+    "Office",
+    "其他證照 · 技能 · 資格名稱"
+  ],
+  "computer_skills": [
+    "高級(文書製作/版画編排+圖表/圖形製作插入+樣藍製作/郵件合併列印)",
+    "高級(文書製作/版面編排+圖表/圖形製作插入+標籤製作/郵件合併列印)"
+  ],
+  "certificate": [
+    "其他證照 · 技能 · 資格名稱"
+  ],
+  "key_points": [
+    {
+      "text": "中文",
+      "label": "LANGUAGE"
+    },
+    {
+      "text": "30",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "1",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "1個月",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "日文",
+      "label": "LANGUAGE"
+    },
+    {
+      "text": "2020",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "12",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "英文",
+      "label": "LANGUAGE"
+    },
+    {
+      "text": "8009",
+      "label": "TIME"
+    },
+    {
+      "text": "海南",
+      "label": "GPE"
+    },
+    {
+      "text": "05",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "2012",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "06",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "Word",
+      "label": "WORK_OF_ART"
+    },
+    {
+      "text": "Excel",
+      "label": "WORK_OF_ART"
+    },
+    {
+      "text": "Golang (Passed Linked",
+      "label": "ORG"
+    },
+    {
+      "text": "庫與",
+      "label": "FAC"
+    },
+    {
+      "text": "2020",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "2021",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "2021",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "1",
+      "label": "CARDINAL"
+    },
+    {
+      "text": "台灣",
+      "label": "NORP"
+    },
+    {
+      "text": "台灣",
+      "label": "GPE"
+    }
+  ]
+}
