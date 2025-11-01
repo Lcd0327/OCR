@@ -156,17 +156,117 @@ class OCRProcessor:
             pairs.append({"key": pending_key, "value": ""})
         return pairs
 
+
+    #TODO：visual layout analysis (tables, columns) can be added in future enhancements and formatting
+    def _extract_compact_contact(self, rows: List[Dict[str, Any]]) -> Dict[str, str]:
+        """從 rows 嘗試擷取並把姓名/手機/Email 盡量排在一起回傳（不含座標）"""
+        email = ""
+        phone = ""
+        name = ""
+
+        # 展平所有 segments（保持 top->down, left->right）
+        segments = []
+        for r_idx, r in enumerate(rows):
+            segs = sorted(r.get("texts", []), key=lambda s: s.get("x1", 0))
+            for s in segs:
+                seg = s.copy()
+                seg["_row_idx"] = r_idx
+                seg["_center_x"] = (seg.get("x1", 0) + seg.get("x2", 0)) / 2
+                seg["_center_y"] = (seg.get("y1", 0) + seg.get("y2", 0)) / 2
+                segments.append(seg)
+
+        # 1) 先找 email / phone（全頁第一個符合）
+        for seg in segments:
+            txt = seg.get("text", "")
+            if not email:
+                m = self._re_email.search(txt)
+                if m:
+                    email = m.group(0)
+            if not phone:
+                m2 = self._re_phone.search(txt)
+                if m2:
+                    phone = m2.group(0)
+            if email and phone:
+                break
+
+        # 2) 嘗試用「姓名」標籤附近找姓名（同一 row、或下一 row）
+        name_kw = ['姓名', '中文姓名', 'name']
+        for i, seg in enumerate(segments):
+            txt = seg.get("text", "")
+            for kw in name_kw:
+                if kw in txt:
+                    row_idx = seg["_row_idx"]
+                    candidates = [s for s in segments if s["_row_idx"] == row_idx and s["_center_x"] > seg["_center_x"]]
+                    if candidates:
+                        name = candidates[0].get("text", "").strip()
+                        break
+                    next_row_idx = row_idx + 1
+                    next_row_segs = [s for s in segments if s["_row_idx"] == next_row_idx]
+                    if next_row_segs:
+                        next_row_segs = sorted(next_row_segs, key=lambda s: s["_center_x"])
+                        name = next_row_segs[0].get("text", "").strip()
+                        break
+            if name:
+                break
+
+        # 3) fallback：若仍找不到 name，挑第一個看起來像名字的 segment（無數字、長度合理）
+        if not name:
+            for seg in segments:
+                txt = seg.get("text", "").strip()
+                if not txt:
+                    continue
+                if any(kw in txt for kw in name_kw):
+                    continue
+                if self._re_email.search(txt) or self._re_phone.search(txt):
+                    continue
+                if sum(ch.isdigit() for ch in txt) > 0:
+                    continue
+                if 1 < len(txt) <= 30:
+                    name = txt
+                    break
+
+        return {"姓名": name or "", "手機": phone or "", "Email": email or ""}
+
     def process_page(self, page, page_number: int) -> Dict[str, Any]:
         lines = self._lines_from_page(page)
         groups = self._group_lines_by_row(lines)
-        kv_pairs = self._detect_kv_pairs(groups)
-        # 也保留原始行清單（依順序）
-        line_entries = [ln.to_dict() for ln in lines]
+
+        # 建立 rows 僅供內部處理（但不會回傳座標）
+        rows = []
+        for g in groups:
+            rows.append({
+                "y": sum(l.center_y for l in g) / len(g),
+                "texts": [ln.to_dict() for ln in g]
+            })
+
+        # page_text 使用每個群組的文字（群組內以空白連接，群組間以換行）
+        page_text = '\n'.join([' '.join(ln.text for ln in g) for g in groups])
+
+        # 嘗試組合姓名/手機/Email（供顯示用）
+        compact_contact = self._extract_compact_contact(rows)
+
+        # 若有至少一項資訊，建立一行格式化字串放在最前面（不包含座標或原始行/rows）
+        contact_line_parts = []
+        if compact_contact.get("姓名"):
+            contact_line_parts.append(f"姓名: {compact_contact['姓名']}")
+        if compact_contact.get("手機"):
+            contact_line_parts.append(f"手機: {compact_contact['手機']}")
+        if compact_contact.get("Email"):
+            contact_line_parts.append(f"Email: {compact_contact['Email']}")
+        contact_line = "    ".join(contact_line_parts) if contact_line_parts else ""
+
+        # formatted_text 為整個頁面的「純文字」輸出，並在最上方加入 contact_line（如果有）
+        if contact_line:
+            formatted_text = contact_line + "\n\n" + page_text
+        else:
+            formatted_text = page_text
+
         return {
             "page_number": page_number,
-            "lines": line_entries,
-            "kv_pairs": kv_pairs,
-            "total_lines": len(line_entries)
+            "page_text": page_text,
+            "formatted_text": formatted_text,
+            "compact_contact": compact_contact,
+            "total_lines": len(lines)
         }
 
     def process_file(self, file_path: str) -> Tuple[bool, Dict[str, Any]]:
