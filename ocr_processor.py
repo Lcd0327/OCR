@@ -231,6 +231,10 @@ class OCRProcessor:
         lines = self._lines_from_page(page)
         groups = self._group_lines_by_row(lines)
 
+        # 單純依據 bounding box 由上到下、由左至右排序的行文字
+        ordered_line_texts = [ln.text for ln in lines if ln.text]
+        ordered_text = "\n".join(ordered_line_texts)
+
         # 建立 rows 僅供內部處理（但不會回傳座標）
         rows = []
         for g in groups:
@@ -239,8 +243,28 @@ class OCRProcessor:
                 "texts": [ln.to_dict() for ln in g]
             })
 
-        # page_text 使用每個群組的文字（群組內以空白連接，群組間以換行）
-        page_text = '\n'.join([' '.join(ln.text for ln in g) for g in groups])
+        # 群組化後的一行一行字串，讓同一列的語句聚在一起
+        grouped_lines = []
+        for g in groups:
+            group_text = " ".join([ln.text for ln in g if ln.text]).strip()
+            if group_text:
+                grouped_lines.append(group_text)
+
+        # 根據 heuristics 產生 key/value 的結構化結果
+        kv_pairs = self._detect_kv_pairs(groups)
+        structured_lines: List[str] = []
+        for pair in kv_pairs:
+            key = (pair.get("key") or "").strip()
+            value = (pair.get("value") or "").strip()
+            if key and value:
+                structured_lines.append(f"{key}: {value}")
+            elif key:
+                structured_lines.append(key)
+            elif value:
+                structured_lines.append(value)
+
+        # page_text 仍保留視覺閱讀順序，供需要原始順序的情境使用
+        page_text = ordered_text
 
         # 嘗試組合姓名/手機/Email（供顯示用）
         compact_contact = self._extract_compact_contact(rows)
@@ -255,14 +279,19 @@ class OCRProcessor:
             contact_line_parts.append(f"Email: {compact_contact['Email']}")
         contact_line = "    ".join(contact_line_parts) if contact_line_parts else ""
 
-        # formatted_text 為整個頁面的「純文字」輸出，並在最上方加入 contact_line（如果有）
+        # formatted_text 盡量採用結構化或群組化的行，讓相關內容同列顯示
+        prioritized_lines = structured_lines or grouped_lines or ordered_line_texts
+        formatted_page_text = "\n".join(prioritized_lines)
         if contact_line:
-            formatted_text = contact_line + "\n\n" + page_text
+            formatted_text = contact_line + "\n\n" + formatted_page_text
         else:
-            formatted_text = page_text
+            formatted_text = formatted_page_text
 
         return {
             "page_number": page_number,
+            "reading_order_lines": ordered_line_texts,
+            "grouped_lines": grouped_lines,
+            "structured_lines": structured_lines,
             "page_text": page_text,
             "formatted_text": formatted_text,
             "compact_contact": compact_contact,
@@ -301,7 +330,8 @@ class OCRProcessor:
                 "pages": []
             }
             for idx, page in enumerate(result.analyze_result.read_results):
-                out["pages"].append(self.process_page(page, idx + 1))
+                page_payload = self.process_page(page, idx + 1)
+                out["pages"].append(page_payload)
 
             return True, out
         except Exception as e:
