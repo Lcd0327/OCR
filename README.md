@@ -80,3 +80,9 @@ success, result = processor.process_file("path/to/file.pdf")
 3. 加入進度條顯示
 4. 支援更多輸出格式
 5. 加入日誌記錄功能
+
+## TODO
+1. 影像銳利化
+2. 去噪
+3. 超分辨率
+4. 邊緣對比
