@@ -1,9 +1,15 @@
+import io
 import os
 import time
 import json
 import re
 import importlib.util
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Tuple, Optional
+
+try:
+    import cv2  # type: ignore
+except ImportError:
+    cv2 = None
 
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from azure.cognitiveservices.vision.computervision.models import OperationStatusCodes
@@ -15,6 +21,13 @@ _DOTENV_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'azure.e
 if os.path.exists(_DOTENV_PATH):
     load_dotenv(dotenv_path=_DOTENV_PATH)
 
+
+def _env_flag(name: str, default: bool) -> bool:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    return raw.strip().lower() in {"1", "true", "yes", "on"}
+
 class OCRConfig:
     """簡化的 OCR 配置，主要用於排序容差與支援副檔名"""
     def __init__(self):
@@ -22,11 +35,24 @@ class OCRConfig:
         self.endpoint = os.getenv("AZURE_ENDPOINT")
         # 不拋錯，讓呼叫端決定是否可用
         self.supported_extensions = ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif', '.pdf']
-        self.y_tolerance = 12  # 群組化時的垂直容差（像素或相對單位）
+        self.y_tolerance = 18  # 群組化時的垂直容差（像素或相對單位）
         # 常用關鍵字（用於 heuristics）
         self.keywords = ['姓名','中文姓名','name','手機','電話','phone','Email','E-mail','email',
                          '地址','通訊地址','居住地','學校','學歷','科系','性別','生日','出生日期',
                          '應徵職務','職稱','自傳','簡介','工作經歷','技能','證照','語言能力']
+        # 影像前處理參數，可透過環境變數覆寫
+        self.enable_preprocess = _env_flag("OCR_ENABLE_PREPROCESS", True)
+        self.preprocess = {
+            "median_kernel": max(3, int(os.getenv("OCR_PREPROCESS_MEDIAN_KERNEL", "3")) | 1),
+            "clahe_clip": float(os.getenv("OCR_PREPROCESS_CLAHE_CLIP", "2.5")),
+            "clahe_grid": max(2, int(os.getenv("OCR_PREPROCESS_CLAHE_GRID", "8"))),
+            "gaussian_sigma": float(os.getenv("OCR_PREPROCESS_GAUSSIAN_SIGMA", "1.5")),
+            "unsharp_amount": float(os.getenv("OCR_PREPROCESS_UNSHARP_AMOUNT", "1.7")),
+            "unsharp_subtract": float(os.getenv("OCR_PREPROCESS_UNSHARP_SUB", "0.7")),
+            "adaptive_block": max(3, int(os.getenv("OCR_PREPROCESS_ADAPTIVE_BLOCK", "21")) | 1),
+            "adaptive_c": float(os.getenv("OCR_PREPROCESS_ADAPTIVE_C", "8")),
+            "output_format": os.getenv("OCR_PREPROCESS_OUTPUT_FORMAT", ".png")
+        }
 
 class TextLine:
     """簡單行資料結構（從 bounding_box 推算 x1,y1,x2,y2）"""
@@ -90,6 +116,54 @@ class OCRProcessor:
         if current:
             groups.append(sorted(current, key=lambda l: l.x1))
         return groups
+
+    def _can_preprocess(self, file_path: str) -> bool:
+        if not self.config.enable_preprocess or cv2 is None:
+            return False
+        ext = os.path.splitext(file_path)[1].lower()
+        if ext not in {'.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif'}:
+            return False
+        return os.path.exists(file_path)
+
+    def _preprocess_image(self, file_path: str) -> Optional[bytes]:
+        """銳利化+二值化影像後輸出為位元組串，如果流程不可用則回傳 None"""
+        if not self._can_preprocess(file_path):
+            return None
+        settings = self.config.preprocess
+        try:
+            image = cv2.imread(file_path, cv2.IMREAD_GRAYSCALE)
+            if image is None:
+                return None
+            denoised = cv2.medianBlur(image, settings["median_kernel"])
+            clahe = cv2.createCLAHE(
+                clipLimit=settings["clahe_clip"],
+                tileGridSize=(settings["clahe_grid"], settings["clahe_grid"])
+            ).apply(denoised)
+            blur = cv2.GaussianBlur(clahe, (0, 0), settings["gaussian_sigma"])
+            sharpen = cv2.addWeighted(
+                clahe,
+                settings["unsharp_amount"],
+                blur,
+                -settings["unsharp_subtract"],
+                0
+            )
+            binary = cv2.adaptiveThreshold(
+                sharpen,
+                255,
+                cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                cv2.THRESH_BINARY,
+                settings["adaptive_block"],
+                settings["adaptive_c"],
+            )
+            fmt = (settings["output_format"] or ".png").lower()
+            if fmt not in {'.png', '.jpg', '.jpeg', '.bmp', '.tiff', '.tif'}:
+                fmt = '.png'
+            success, buffer = cv2.imencode(fmt, binary)
+            if not success:
+                return None
+            return buffer.tobytes()
+        except Exception:
+            return None
 
     # 簡單正則：email, phone
     _re_email = re.compile(r'[\w\.-]+@[\w\.-]+\.\w+')
@@ -305,9 +379,14 @@ class OCRProcessor:
         if not self.client:
             return False, {"error": "Azure Computer Vision client 未配置，請設定 AZURE_SUBSCRIPTION_KEY / AZURE_ENDPOINT"}
 
+        preprocessed_bytes: Optional[bytes] = self._preprocess_image(file_path)
+        fs = None
         try:
-            with open(file_path, "rb") as fs:
-                read_response = self.client.read_in_stream(fs, raw=True)
+            if preprocessed_bytes is not None:
+                fs = io.BytesIO(preprocessed_bytes)
+            else:
+                fs = open(file_path, "rb")
+            read_response = self.client.read_in_stream(fs, raw=True)
             operation_location = read_response.headers.get("Operation-Location")
             if not operation_location:
                 return False, {"error": "無法取得 Operation-Location"}
@@ -327,7 +406,11 @@ class OCRProcessor:
                 "file_path": file_path,
                 "timestamp": int(time.time()),
                 "total_pages": len(result.analyze_result.read_results),
-                "pages": []
+                "pages": [],
+                "preprocess": {
+                    "enabled": self.config.enable_preprocess,
+                    "applied": bool(preprocessed_bytes) and cv2 is not None
+                }
             }
             for idx, page in enumerate(result.analyze_result.read_results):
                 page_payload = self.process_page(page, idx + 1)
@@ -336,6 +419,12 @@ class OCRProcessor:
             return True, out
         except Exception as e:
             return False, {"error": str(e)}
+        finally:
+            if fs:
+                try:
+                    fs.close()
+                except Exception:
+                    pass
 
 class FileManager:
     """儲存與簡單轉換功能"""

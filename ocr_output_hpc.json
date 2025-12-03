@@ -1,0 +1,119 @@
+{
+  "file_path": "D:\\Code\\OCR\\assets\\hpc.pdf",
+  "timestamp": 1764782024,
+  "total_pages": 2,
+  "pages": [
+    {
+      "page_number": 1,
+      "reading_order_lines": [
+        "Name: Chen Yang Wang",
+        "Cell: +886 932-230-966",
+        "....",
+        "Email: me@youn.gg",
+        "Links: youn.gg",
+        "Technical Skills",
+        "Languages: C++ (17/20), Rust, Python, Bash, CMake",
+        "...",
+        "HPC & GPU: HIP (ROCm), CUDA, Kokkos, MPI, OpenMP",
+        "Systems & Tools: Linux, Docker, Git, Slurm",
+        "Education",
+        "National Ilan University, Department of Computer Science and Information Engineering (2023/09 -",
+        "Present)",
+        "National Tainan Industrial High School, Information Technology (2020/09 - 2023/06)",
+        "Work Experience",
+        "HPC Engineering Intern, National Center for High-performance Computing (NCHC)",
+        "Remote, during semester (2025/11 - Present)",
+        "Focusing on software deployment and performance validation within the AMD ROCm ecosystem.",
+        "..",
+        "Building and testing Docker-containerized HPC environments for LLM inference (utilizing LMCache",
+        "and vLLM), solving resource scheduling challenges for multi-node GPU clusters to improve portability",
+        "and efficiency.",
+        "Projects",
+        "Libraries & Algorithms",
+        "hippp - Write GPU program with RAII",
+        "Developed a modern C++ header-only library leveraging RAII to manage GPU resources on the ROCm",
+        "stack.",
+        "Simplified GPU programming workflow by reducing boilerplate code and preventing memory leaks.",
+        "rocOdyssey - ROCm version of Odyssey (GPU-based GRRT)",
+        "Ray-Tracing code, from CUDA to HIP/ROCm to enable black",
+        "Ported Odyssey, a General Relativistic",
+        "hole simulations on AMD GPUs.",
+        "Tuned kernel launch parameters for AMD CDNA/RDNA architectures: optimized Wavefront size to 64",
+        "and Thread Block size to 256, achieving maximum compute unit occupancy.",
+        "Accelerating AE-QTS Algorithm with Kokkos",
+        "Accelerated the AE-QTS algorithm by migrating from single-threaded Python to the Kokkos",
+        "performance portability framework."
+      ],
+      "grouped_lines": [
+        "Accelerating AE-QTS Algorithm with Kokkos Technical Skills Work Experience hippp - Write GPU program with RAII rocOdyssey - ROCm version of Odyssey (GPU-based GRRT) Remote, during semester (2025/11 - Present) HPC Engineering Intern, National Center for High-performance Computing (NCHC) Libraries & Algorithms Education Projects .. .... ... Accelerated the AE-QTS algorithm by migrating from single-threaded Python to the Kokkos Tuned kernel launch parameters for AMD CDNA/RDNA architectures: optimized Wavefront size to 64 stack. Systems & Tools: Linux, Docker, Git, Slurm and vLLM), solving resource scheduling challenges for multi-node GPU clusters to improve portability and efficiency. and Thread Block size to 256, achieving maximum compute unit occupancy. Simplified GPU programming workflow by reducing boilerplate code and preventing memory leaks. Cell: +886 932-230-966 hole simulations on AMD GPUs. performance portability framework. Languages: C++ (17/20), Rust, Python, Bash, CMake HPC & GPU: HIP (ROCm), CUDA, Kokkos, MPI, OpenMP National Ilan University, Department of Computer Science and Information Engineering (2023/09 - National Tainan Industrial High School, Information Technology (2020/09 - 2023/06) Name: Chen Yang Wang Email: me@youn.gg Links: youn.gg Present) Focusing on software deployment and performance validation within the AMD ROCm ecosystem. Building and testing Docker-containerized HPC environments for LLM inference (utilizing LMCache Developed a modern C++ header-only library leveraging RAII to manage GPU resources on the ROCm Ported Odyssey, a General Relativistic Ray-Tracing code, from CUDA to HIP/ROCm to enable black"
+      ],
+      "structured_lines": [
+        "Accelerating AE-QTS Algorithm with Kokkos Technical Skills Work Experience hippp - Write GPU program with RAII rocOdyssey - ROCm version of Odyssey (GPU-based GRRT) Remote, during semester (2025/11 - Present) HPC Engineering Intern, National Center for High-performance Computing (NCHC) Libraries & Algorithms Education Projects .. .... ... Accelerated the AE-QTS algorithm by migrating from single-threaded Python to the Kokkos Tuned kernel launch parameters for AMD CDNA/RDNA architectures: optimized Wavefront size to 64 stack. Systems & Tools: Linux, Docker, Git, Slurm and vLLM), solving resource scheduling challenges for multi-node GPU clusters to improve portability and efficiency. and Thread Block size to 256, achieving maximum compute unit occupancy. Simplified GPU programming workflow by reducing boilerplate code and preventing memory leaks. Cell: +886 932-230-966 hole simulations on AMD GPUs. performance portability framework. Languages: C++ (17/20), Rust, Python, Bash, CMake HPC & GPU: HIP (ROCm), CUDA, Kokkos, MPI, OpenMP National Ilan University, Department of Computer Science and Information Engineering (2023/09 - National Tainan Industrial High School, Information Technology (2020/09 - 2023/06) Name: Chen Yang Wang Email: me@youn.gg Links: youn.gg Present) Focusing on software deployment and performance validation within the AMD ROCm ecosystem. Building and testing Docker-containerized HPC environments for LLM inference (utilizing LMCache Developed a modern C++ header-only library leveraging RAII to manage GPU resources on the ROCm Ported Odyssey, a General Relativistic Ray-Tracing code, from CUDA to HIP/ROCm to enable black"
+      ],
+      "page_text": "Name: Chen Yang Wang\nCell: +886 932-230-966\n....\nEmail: me@youn.gg\nLinks: youn.gg\nTechnical Skills\nLanguages: C++ (17/20), Rust, Python, Bash, CMake\n...\nHPC & GPU: HIP (ROCm), CUDA, Kokkos, MPI, OpenMP\nSystems & Tools: Linux, Docker, Git, Slurm\nEducation\nNational Ilan University, Department of Computer Science and Information Engineering (2023/09 -\nPresent)\nNational Tainan Industrial High School, Information Technology (2020/09 - 2023/06)\nWork Experience\nHPC Engineering Intern, National Center for High-performance Computing (NCHC)\nRemote, during semester (2025/11 - Present)\nFocusing on software deployment and performance validation within the AMD ROCm ecosystem.\n..\nBuilding and testing Docker-containerized HPC environments for LLM inference (utilizing LMCache\nand vLLM), solving resource scheduling challenges for multi-node GPU clusters to improve portability\nand efficiency.\nProjects\nLibraries & Algorithms\nhippp - Write GPU program with RAII\nDeveloped a modern C++ header-only library leveraging RAII to manage GPU resources on the ROCm\nstack.\nSimplified GPU programming workflow by reducing boilerplate code and preventing memory leaks.\nrocOdyssey - ROCm version of Odyssey (GPU-based GRRT)\nRay-Tracing code, from CUDA to HIP/ROCm to enable black\nPorted Odyssey, a General Relativistic\nhole simulations on AMD GPUs.\nTuned kernel launch parameters for AMD CDNA/RDNA architectures: optimized Wavefront size to 64\nand Thread Block size to 256, achieving maximum compute unit occupancy.\nAccelerating AE-QTS Algorithm with Kokkos\nAccelerated the AE-QTS algorithm by migrating from single-threaded Python to the Kokkos\nperformance portability framework.",
+      "formatted_text": "姓名: Technical Skills    手機: +886 932-230-966    Email: me@youn.gg\n\nAccelerating AE-QTS Algorithm with Kokkos Technical Skills Work Experience hippp - Write GPU program with RAII rocOdyssey - ROCm version of Odyssey (GPU-based GRRT) Remote, during semester (2025/11 - Present) HPC Engineering Intern, National Center for High-performance Computing (NCHC) Libraries & Algorithms Education Projects .. .... ... Accelerated the AE-QTS algorithm by migrating from single-threaded Python to the Kokkos Tuned kernel launch parameters for AMD CDNA/RDNA architectures: optimized Wavefront size to 64 stack. Systems & Tools: Linux, Docker, Git, Slurm and vLLM), solving resource scheduling challenges for multi-node GPU clusters to improve portability and efficiency. and Thread Block size to 256, achieving maximum compute unit occupancy. Simplified GPU programming workflow by reducing boilerplate code and preventing memory leaks. Cell: +886 932-230-966 hole simulations on AMD GPUs. performance portability framework. Languages: C++ (17/20), Rust, Python, Bash, CMake HPC & GPU: HIP (ROCm), CUDA, Kokkos, MPI, OpenMP National Ilan University, Department of Computer Science and Information Engineering (2023/09 - National Tainan Industrial High School, Information Technology (2020/09 - 2023/06) Name: Chen Yang Wang Email: me@youn.gg Links: youn.gg Present) Focusing on software deployment and performance validation within the AMD ROCm ecosystem. Building and testing Docker-containerized HPC environments for LLM inference (utilizing LMCache Developed a modern C++ header-only library leveraging RAII to manage GPU resources on the ROCm Ported Odyssey, a General Relativistic Ray-Tracing code, from CUDA to HIP/ROCm to enable black",
+      "compact_contact": {
+        "姓名": "Technical Skills",
+        "手機": "+886 932-230-966",
+        "Email": "me@youn.gg"
+      },
+      "total_lines": 37
+    },
+    {
+      "page_number": 2,
+      "reading_order_lines": [
+        "Enabled cross-platform execution on both AMD and NVIDIA GPUs, achieving performance parity with",
+        "the native CUDA implementation.",
+        "System Applications",
+        "yush - Simple and modern shell",
+        "...",
+        "yu - Package manager wrapper",
+        "cmake-init - CMake project initializer",
+        "Competitions",
+        "4th HiPAC High-Performance Application Competition - Honorable Mention",
+        "Accelerated LAMMPS molecular dynamics simulations in a multi-node environment (2 nodes × 8",
+        "NVIDIA V100 GPUs).",
+        "Devised a resource scheduling strategy: utilized off-peak hours for high-load testing and optimized",
+        "execution scripts to minimize runtime, maximizing the team's testing window.",
+        "National Center for High-Performance Computing International Student Cluster Competition",
+        "(SCC)",
+        "Selected for National Team Training: Undergoing intensive HPC training to represent Taiwan in",
+        "international supercomputing competitions.",
+        "Contributions",
+        "ROCm Ecosystem Contributions",
+        "ROCm rocHPL - Add gfx1201 and ROCm 7.0 support: Updated CMake build logic to support the",
+        "latest gfx1201 (RDNA4) architecture, resolving hardware compatibility issues for benchmark testing.",
+        "GitHub Linguist - Add HIP language support: Added syntax highlighting support for HIP, improving",
+        "code statistics and readability for global projects.",
+        "Github gitignore - Add HIP.gitignore: Standardized .gitignore templates for HIP projects to",
+        "enhance developer experience.",
+        "Community",
+        "TANET & NCS 2025 - Conference Staff",
+        "SITCON X - Speaker (Topic: Project Introduction & System Programming)",
+        "SCIST S3 Algorithm Course - Online Teaching Assistant",
+        "......",
+        "Jianbei Electrical Engineering Club - Club Instructor",
+        "Southern Nine Schools Information Club - Team Mentor (Joint Tea Party & Winter Training)",
+        "National Tainan Industrial High School Web Design Club - President & Instructor"
+      ],
+      "grouped_lines": [
+        "4th HiPAC High-Performance Application Competition - Honorable Mention (SCC) System Applications Competitions Contributions Community National Center for High-Performance Computing International Student Cluster Competition ROCm Ecosystem Contributions ... ...... Jianbei Electrical Engineering Club - Club Instructor Accelerated LAMMPS molecular dynamics simulations in a multi-node environment (2 nodes × 8 yush - Simple and modern shell yu - Package manager wrapper the native CUDA implementation. TANET & NCS 2025 - Conference Staff Selected for National Team Training: Undergoing intensive HPC training to represent Taiwan in SITCON X - Speaker (Topic: Project Introduction & System Programming) SCIST S3 Algorithm Course - Online Teaching Assistant Southern Nine Schools Information Club - Team Mentor (Joint Tea Party & Winter Training) cmake-init - CMake project initializer execution scripts to minimize runtime, maximizing the team's testing window. code statistics and readability for global projects. enhance developer experience. GitHub Linguist - Add HIP language support: Added syntax highlighting support for HIP, improving Github gitignore - Add HIP.gitignore: Standardized .gitignore templates for HIP projects to international supercomputing competitions. latest gfx1201 (RDNA4) architecture, resolving hardware compatibility issues for benchmark testing. ROCm rocHPL - Add gfx1201 and ROCm 7.0 support: Updated CMake build logic to support the National Tainan Industrial High School Web Design Club - President & Instructor Enabled cross-platform execution on both AMD and NVIDIA GPUs, achieving performance parity with NVIDIA V100 GPUs). Devised a resource scheduling strategy: utilized off-peak hours for high-load testing and optimized"
+      ],
+      "structured_lines": [
+        "4th HiPAC High-Performance Application Competition - Honorable Mention (SCC) System Applications Competitions Contributions Community National Center for High-Performance Computing International Student Cluster Competition ROCm Ecosystem Contributions ... ...... Jianbei Electrical Engineering Club - Club Instructor Accelerated LAMMPS molecular dynamics simulations in a multi-node environment (2 nodes × 8 yush - Simple and modern shell yu - Package manager wrapper the native CUDA implementation. TANET & NCS 2025 - Conference Staff Selected for National Team Training: Undergoing intensive HPC training to represent Taiwan in SITCON X - Speaker (Topic: Project Introduction & System Programming) SCIST S3 Algorithm Course - Online Teaching Assistant Southern Nine Schools Information Club - Team Mentor (Joint Tea Party & Winter Training) cmake-init - CMake project initializer execution scripts to minimize runtime, maximizing the team's testing window. code statistics and readability for global projects. enhance developer experience. GitHub Linguist - Add HIP language support: Added syntax highlighting support for HIP, improving Github gitignore - Add HIP.gitignore: Standardized .gitignore templates for HIP projects to international supercomputing competitions. latest gfx1201 (RDNA4) architecture, resolving hardware compatibility issues for benchmark testing. ROCm rocHPL - Add gfx1201 and ROCm 7.0 support: Updated CMake build logic to support the National Tainan Industrial High School Web Design Club - President & Instructor Enabled cross-platform execution on both AMD and NVIDIA GPUs, achieving performance parity with NVIDIA V100 GPUs). Devised a resource scheduling strategy: utilized off-peak hours for high-load testing and optimized"
+      ],
+      "page_text": "Enabled cross-platform execution on both AMD and NVIDIA GPUs, achieving performance parity with\nthe native CUDA implementation.\nSystem Applications\nyush - Simple and modern shell\n...\nyu - Package manager wrapper\ncmake-init - CMake project initializer\nCompetitions\n4th HiPAC High-Performance Application Competition - Honorable Mention\nAccelerated LAMMPS molecular dynamics simulations in a multi-node environment (2 nodes × 8\nNVIDIA V100 GPUs).\nDevised a resource scheduling strategy: utilized off-peak hours for high-load testing and optimized\nexecution scripts to minimize runtime, maximizing the team's testing window.\nNational Center for High-Performance Computing International Student Cluster Competition\n(SCC)\nSelected for National Team Training: Undergoing intensive HPC training to represent Taiwan in\ninternational supercomputing competitions.\nContributions\nROCm Ecosystem Contributions\nROCm rocHPL - Add gfx1201 and ROCm 7.0 support: Updated CMake build logic to support the\nlatest gfx1201 (RDNA4) architecture, resolving hardware compatibility issues for benchmark testing.\nGitHub Linguist - Add HIP language support: Added syntax highlighting support for HIP, improving\ncode statistics and readability for global projects.\nGithub gitignore - Add HIP.gitignore: Standardized .gitignore templates for HIP projects to\nenhance developer experience.\nCommunity\nTANET & NCS 2025 - Conference Staff\nSITCON X - Speaker (Topic: Project Introduction & System Programming)\nSCIST S3 Algorithm Course - Online Teaching Assistant\n......\nJianbei Electrical Engineering Club - Club Instructor\nSouthern Nine Schools Information Club - Team Mentor (Joint Tea Party & Winter Training)\nNational Tainan Industrial High School Web Design Club - President & Instructor",
+      "formatted_text": "姓名: (SCC)\n\n4th HiPAC High-Performance Application Competition - Honorable Mention (SCC) System Applications Competitions Contributions Community National Center for High-Performance Computing International Student Cluster Competition ROCm Ecosystem Contributions ... ...... Jianbei Electrical Engineering Club - Club Instructor Accelerated LAMMPS molecular dynamics simulations in a multi-node environment (2 nodes × 8 yush - Simple and modern shell yu - Package manager wrapper the native CUDA implementation. TANET & NCS 2025 - Conference Staff Selected for National Team Training: Undergoing intensive HPC training to represent Taiwan in SITCON X - Speaker (Topic: Project Introduction & System Programming) SCIST S3 Algorithm Course - Online Teaching Assistant Southern Nine Schools Information Club - Team Mentor (Joint Tea Party & Winter Training) cmake-init - CMake project initializer execution scripts to minimize runtime, maximizing the team's testing window. code statistics and readability for global projects. enhance developer experience. GitHub Linguist - Add HIP language support: Added syntax highlighting support for HIP, improving Github gitignore - Add HIP.gitignore: Standardized .gitignore templates for HIP projects to international supercomputing competitions. latest gfx1201 (RDNA4) architecture, resolving hardware compatibility issues for benchmark testing. ROCm rocHPL - Add gfx1201 and ROCm 7.0 support: Updated CMake build logic to support the National Tainan Industrial High School Web Design Club - President & Instructor Enabled cross-platform execution on both AMD and NVIDIA GPUs, achieving performance parity with NVIDIA V100 GPUs). Devised a resource scheduling strategy: utilized off-peak hours for high-load testing and optimized",
+      "compact_contact": {
+        "姓名": "(SCC)",
+        "手機": "",
+        "Email": ""
+      },
+      "total_lines": 33
+    }
+  ],
+  "preprocess": {
+    "enabled": true,
+    "applied": false
+  }
+}
