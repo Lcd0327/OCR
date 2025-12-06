@@ -35,7 +35,7 @@ class OCRConfig:
         self.endpoint = os.getenv("AZURE_ENDPOINT")
         # 不拋錯，讓呼叫端決定是否可用
         self.supported_extensions = ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif', '.pdf']
-        self.y_tolerance = 18  # 群組化時的垂直容差（像素或相對單位）
+        self.y_tolerance = 16  # 群組化時的垂直容差（像素或相對單位）
         # 常用關鍵字（用於 heuristics）
         self.keywords = ['姓名','中文姓名','name','手機','電話','phone','Email','E-mail','email',
                          '地址','通訊地址','居住地','學校','學歷','科系','性別','生日','出生日期',
@@ -51,7 +51,12 @@ class OCRConfig:
             "unsharp_subtract": float(os.getenv("OCR_PREPROCESS_UNSHARP_SUB", "0.7")),
             "adaptive_block": max(3, int(os.getenv("OCR_PREPROCESS_ADAPTIVE_BLOCK", "21")) | 1),
             "adaptive_c": float(os.getenv("OCR_PREPROCESS_ADAPTIVE_C", "8")),
-            "output_format": os.getenv("OCR_PREPROCESS_OUTPUT_FORMAT", ".png")
+            "output_format": os.getenv("OCR_PREPROCESS_OUTPUT_FORMAT", ".png"),
+            "upscale": _env_flag("OCR_PREPROCESS_UPSCALE", False),
+            "upscale_factor": float(os.getenv("OCR_PREPROCESS_UPSCALE_FACTOR", "1.5")),
+            "save_image": _env_flag("OCR_PREPROCESS_SAVE_IMAGE", False),
+            "save_dir": os.getenv("OCR_PREPROCESS_SAVE_DIR", os.path.join("assets", "processed_images")),
+            "filename_suffix": os.getenv("OCR_PREPROCESS_FILENAME_SUFFIX", "_processed") or "_processed"
         }
 
 class TextLine:
@@ -134,6 +139,10 @@ class OCRProcessor:
             image = cv2.imread(file_path, cv2.IMREAD_GRAYSCALE)
             if image is None:
                 return None
+            if settings.get("upscale"):
+                factor = max(1.0, float(settings.get("upscale_factor", 1.5)))
+                if factor > 1.0001:
+                    image = cv2.resize(image, None, fx=factor, fy=factor, interpolation=cv2.INTER_CUBIC)
             denoised = cv2.medianBlur(image, settings["median_kernel"])
             clahe = cv2.createCLAHE(
                 clipLimit=settings["clahe_clip"],
@@ -155,6 +164,25 @@ class OCRProcessor:
                 settings["adaptive_block"],
                 settings["adaptive_c"],
             )
+            if settings.get("save_image"):
+                # Save a copy of the processed image using configured path/suffix for reference
+                rel_dir = settings.get("save_dir") or os.path.join("assets", "processed_images")
+                if os.path.isabs(rel_dir):
+                    processed_dir = rel_dir
+                else:
+                    processed_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), rel_dir)
+                os.makedirs(processed_dir, exist_ok=True)
+                base_name = os.path.splitext(os.path.basename(file_path))[0]
+                suffix = settings.get("filename_suffix") or "_processed"
+                fmt_ext = (settings.get("output_format") or ".png").lower()
+                if not fmt_ext.startswith('.'):
+                    fmt_ext = f".{fmt_ext}"
+                processed_path = os.path.join(processed_dir, f"{base_name}{suffix}{fmt_ext}")
+                print(f"[OCR] saving processed image to {processed_path}")
+                try:
+                    cv2.imwrite(processed_path, binary)
+                except Exception:
+                    pass
             fmt = (settings["output_format"] or ".png").lower()
             if fmt not in {'.png', '.jpg', '.jpeg', '.bmp', '.tiff', '.tif'}:
                 fmt = '.png'
@@ -301,6 +329,77 @@ class OCRProcessor:
 
         return {"姓名": name or "", "手機": phone or "", "Email": email or ""}
 
+    def _score_resume(self, pages: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """根據聯絡資訊、關鍵字與行數給予簡易評分"""
+        if not pages:
+            return {"score": 0, "components": {}, "keywords_found": []}
+
+        combined_texts: List[str] = []
+        total_lines = 0
+        contact_presence = {"姓名": False, "手機": False, "Email": False}
+        for page in pages:
+            total_lines += int(page.get("total_lines", 0))
+            combined_texts.append(page.get("formatted_text") or page.get("page_text") or "")
+            compact = page.get("compact_contact") or {}
+            for key in contact_presence:
+                if compact.get(key):
+                    contact_presence[key] = True
+
+        full_text = "\n".join(combined_texts)
+
+        contact_score = sum(10 for present in contact_presence.values() if present)
+
+        keyword_pool = [
+            "工作經歷",
+            "工作技能",
+            "技能",
+            "學歷",
+            "專業證照",
+            "證照",
+            "語言能力",
+            "自傳",
+            "簡介",
+            "專長"
+        ]
+        keywords_found: List[str] = []
+        keyword_score = 0
+        for kw in keyword_pool:
+            if kw and kw in full_text:
+                keywords_found.append(kw)
+                keyword_score += 5
+        keyword_score = min(40, keyword_score)
+
+        if total_lines >= 150:
+            length_score = 20
+        elif total_lines >= 100:
+            length_score = 16
+        elif total_lines >= 60:
+            length_score = 12
+        elif total_lines >= 30:
+            length_score = 8
+        else:
+            length_score = 4
+
+        extra_signal = 0
+        if self._re_email.search(full_text):
+            extra_signal += 5
+        if self._re_phone.search(full_text):
+            extra_signal += 5
+
+        total_score = min(100, contact_score + keyword_score + length_score + extra_signal)
+        return {
+            "score": total_score,
+            "components": {
+                "contact": contact_score,
+                "keywords": keyword_score,
+                "length": length_score,
+                "extra": extra_signal
+            },
+            "keywords_found": keywords_found,
+            "total_lines": total_lines,
+            "contact_presence": contact_presence
+        }
+
     def process_page(self, page, page_number: int) -> Dict[str, Any]:
         lines = self._lines_from_page(page)
         groups = self._group_lines_by_row(lines)
@@ -415,6 +514,8 @@ class OCRProcessor:
             for idx, page in enumerate(result.analyze_result.read_results):
                 page_payload = self.process_page(page, idx + 1)
                 out["pages"].append(page_payload)
+
+            out["resume_score"] = self._score_resume(out["pages"])
 
             return True, out
         except Exception as e:

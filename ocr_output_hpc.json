@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\hpc.pdf",
-  "timestamp": 1764782024,
+  "timestamp": 1764858012,
   "total_pages": 2,
   "pages": [
     {
@@ -115,5 +115,21 @@
   "preprocess": {
     "enabled": true,
     "applied": false
+  },
+  "resume_score": {
+    "score": 52,
+    "components": {
+      "contact": 30,
+      "keywords": 0,
+      "length": 12,
+      "extra": 10
+    },
+    "keywords_found": [],
+    "total_lines": 70,
+    "contact_presence": {
+      "姓名": true,
+      "手機": true,
+      "Email": true
+    }
   }
 }
