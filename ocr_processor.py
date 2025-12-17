@@ -3,8 +3,12 @@ import os
 import time
 import json
 import re
+
 import importlib.util
 from typing import List, Dict, Any, Tuple, Optional
+
+from google import genai
+from google.genai import types
 
 try:
     import cv2  # type: ignore
@@ -329,10 +333,65 @@ class OCRProcessor:
 
         return {"姓名": name or "", "手機": phone or "", "Email": email or ""}
 
+
+    def _gemini_score_resume(self, resume_text: str) -> dict:
+        """呼叫 Gemini API 以 AI 給分，需設好 GEMINI_API_KEY (google-genai)，自動重試429/503等暫時性錯誤"""
+        import json as _json
+        import time as _time
+        if genai is None:
+            return {"score": 0, "reason": "google-genai 套件未安裝"}
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            return {"score": 0, "reason": "未設定 GEMINI_API_KEY"}
+        max_retries = 3
+        for attempt in range(1, max_retries + 1):
+            try:
+                client = genai.Client(api_key=api_key)
+                prompt = (
+                    "請以專業人資角度，針對以下履歷內容給一個 0~100 分的分數，並簡要說明理由：\n"
+                    f"{resume_text}\n"
+                    "請回傳 JSON 格式，如：{\"score\": 85, \"reason\": \"內容完整，經歷豐富\"}"
+                )
+                response = client.models.generate_content(
+                    model='gemini-2.5-flash',
+                    contents=prompt,
+                    config={
+                        'temperature': 0.2,
+                        'top_p': 0.95,
+                        'top_k': 20,
+                    },
+                )
+                content = response.text if hasattr(response, 'text') else response.candidates[0].content.parts[0].text
+                content = content.strip().lstrip("```json").rstrip("```")
+                ai_result = _json.loads(content)
+                client.close()
+                return ai_result
+            except Exception as e:
+                err_msg = str(e)
+                # 檢查是否為 429/503 或暫時性錯誤
+                if ("429" in err_msg or "RESOURCE_EXHAUSTED" in err_msg or "503" in err_msg or "UNAVAILABLE" in err_msg) and attempt < max_retries:
+                    wait_sec = 10 * attempt
+                    # 若有建議等待秒數則取用
+                    try:
+                        import re as _re
+                        m = _re.search(r'retry in (\d+)', err_msg)
+                        if m:
+                            wait_sec = int(m.group(1))
+                    except Exception:
+                        pass
+                    # 可加上 log: print(f"[Gemini] 第{attempt}次遇到暫時性錯誤，{wait_sec}秒後重試...\n{err_msg}")
+                    _time.sleep(wait_sec)
+                    continue
+                else:
+                    ai_result = {"score": 0, "reason": f"Gemini 回傳錯誤: {e}"}
+                    return ai_result
+        # 若重試後仍失敗
+        return {"score": 0, "reason": "Gemini 多次暫時性錯誤，請稍後再試"}
+
     def _score_resume(self, pages: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """根據聯絡資訊、關鍵字與行數給予簡易評分"""
+        """根據聯絡資訊、關鍵字與行數給予簡易評分，並可引入 Gemini AI 評分"""
         if not pages:
-            return {"score": 0, "components": {}, "keywords_found": []}
+            return {"score": 0, "components": {}, "keywords_found": [], "gemini_score": {}}
 
         combined_texts: List[str] = []
         total_lines = 0
@@ -387,6 +446,10 @@ class OCRProcessor:
             extra_signal += 5
 
         total_score = min(100, contact_score + keyword_score + length_score + extra_signal)
+
+        # Gemini AI 評分
+        gemini_score = self._gemini_score_resume(full_text)
+
         return {
             "score": total_score,
             "components": {
@@ -397,7 +460,8 @@ class OCRProcessor:
             },
             "keywords_found": keywords_found,
             "total_lines": total_lines,
-            "contact_presence": contact_presence
+            "contact_presence": contact_presence,
+            "gemini_score": gemini_score
         }
 
     def process_page(self, page, page_number: int) -> Dict[str, Any]:

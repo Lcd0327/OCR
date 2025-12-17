@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\back.jpg",
-  "timestamp": 1764858006,
+  "timestamp": 1765962609,
   "total_pages": 1,
   "pages": [
     {
@@ -44,8 +44,10 @@
         "2012/09 2016/06",
         "Word",
         ": Excel :",
-        "Node js (Passed Linkedin Stid Assessment) . Golang (Passed Linkedin Shin Assessment) · 桂林校日A版料:",
-        "... PythonyPytorch . Soctet Programming . gRPC",
+        "· 桂林校日A版料:",
+        "Node js (Passed Linkedin Stid Assessment) . Golang (Passed Linkedin Shin Assessment)",
+        "PythonyPytorch . Soctet Programming . gRPC",
+        "...",
         "· 期話口8 : TCP/UDP Socket . Urir Socket",
         "◎ 其位吃店 ·技處 ·資格",
         "PS=40540001882206017",
@@ -63,8 +65,10 @@
         "Phone: 2012/09 2016/06",
         "Word",
         "Excel :",
-        "Node js (Passed Linkedin Stid Assessment) . Golang (Passed Linkedin Shin Assessment) · 桂林校日A版料",
-        "... PythonyPytorch . Soctet Programming . gRPC",
+        "· 桂林校日A版料",
+        "Node js (Passed Linkedin Stid Assessment) . Golang (Passed Linkedin Shin Assessment)",
+        "PythonyPytorch . Soctet Programming . gRPC",
+        "...",
         "· 期話口8: TCP/UDP Socket . Urir Socket",
         "◎ 其位吃店 ·技處 ·資格",
         "Phone: PS=40540001882206017",
@@ -74,7 +78,7 @@
         "1"
       ],
       "page_text": "KAO LI LED\n高立袋\nY\nARPANAANI\nJUP\n₦2\n7070/12\n2019/08\n(B) DRARON\nTOEIC\n2019/05\n2017/09\n2016/06\n2012/09\nWord\n: Excel :\n· 桂林校日A版料:\nNode js (Passed Linkedin Stid Assessment) . Golang (Passed Linkedin Shin Assessment)\nPythonyPytorch . Soctet Programming . gRPC\n...\n· 期話口8 : TCP/UDP Socket . Urir Socket\n◎ 其位吃店 ·技處 ·資格\nPS=40540001882206017\n2010/09\n2021/01\nAVS約2時間ほたてははは·おけなだけ\n2021/03\n1",
-      "formatted_text": "姓名: 高立袋    手機: 40540001882206017\n\n高立袋 Y KAO LI LED\nARPANAANI\nJUP ₦2 7070/12\nTOEIC 2019/08 (B) DRARON\nPhone: 2017/09 2019/05\nPhone: 2012/09 2016/06\nWord\nExcel :\nNode js (Passed Linkedin Stid Assessment) . Golang (Passed Linkedin Shin Assessment) · 桂林校日A版料\n... PythonyPytorch . Soctet Programming . gRPC\n· 期話口8: TCP/UDP Socket . Urir Socket\n◎ 其位吃店 ·技處 ·資格\nPhone: PS=40540001882206017\n2010/09\n2021/01\nAVS約2時間ほたてははは·おけなだけ 2021/03\n1",
+      "formatted_text": "姓名: 高立袋    手機: 40540001882206017\n\n高立袋 Y KAO LI LED\nARPANAANI\nJUP ₦2 7070/12\nTOEIC 2019/08 (B) DRARON\nPhone: 2017/09 2019/05\nPhone: 2012/09 2016/06\nWord\nExcel :\n· 桂林校日A版料\nNode js (Passed Linkedin Stid Assessment) . Golang (Passed Linkedin Shin Assessment)\nPythonyPytorch . Soctet Programming . gRPC\n...\n· 期話口8: TCP/UDP Socket . Urir Socket\n◎ 其位吃店 ·技處 ·資格\nPhone: PS=40540001882206017\n2010/09\n2021/01\nAVS約2時間ほたてははは·おけなだけ 2021/03\n1",
       "compact_contact": {
         "姓名": "高立袋",
         "手機": "40540001882206017",
@@ -101,6 +105,10 @@
       "姓名": true,
       "手機": true,
       "Email": false
+    },
+    "gemini_score": {
+      "score": 0,
+      "reason": "Gemini 回傳錯誤: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}"
     }
   }
 }

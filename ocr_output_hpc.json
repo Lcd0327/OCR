@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\hpc.pdf",
-  "timestamp": 1764858012,
+  "timestamp": 1765962748,
   "total_pages": 2,
   "pages": [
     {
@@ -130,6 +130,10 @@
       "姓名": true,
       "手機": true,
       "Email": true
+    },
+    "gemini_score": {
+      "score": 0,
+      "reason": "Gemini 回傳錯誤: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}"
     }
   }
 }

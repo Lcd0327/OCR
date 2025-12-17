@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\food_service_resume_sample.png",
-  "timestamp": 1764858011,
+  "timestamp": 1765962705,
   "total_pages": 1,
   "pages": [
     {
@@ -99,9 +99,9 @@
     "applied": true
   },
   "resume_score": {
-    "score": 49,
+    "score": 59,
     "components": {
-      "contact": 20,
+      "contact": 30,
       "keywords": 15,
       "length": 4,
       "extra": 10
@@ -116,6 +116,10 @@
       "姓名": true,
       "手機": true,
       "Email": true
+    },
+    "gemini_score": {
+      "score": 0,
+      "reason": "Gemini 回傳錯誤: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}"
     }
   }
 }
