@@ -344,6 +344,7 @@ class OCRProcessor:
         if not api_key:
             return {"score": 0, "reason": "未設定 GEMINI_API_KEY"}
         max_retries = 3
+        min_wait_sec = 13  # 5 RPM = 12秒/次，保守設13秒
         for attempt in range(1, max_retries + 1):
             try:
                 client = genai.Client(api_key=api_key)
@@ -370,16 +371,16 @@ class OCRProcessor:
                 err_msg = str(e)
                 # 檢查是否為 429/503 或暫時性錯誤
                 if ("429" in err_msg or "RESOURCE_EXHAUSTED" in err_msg or "503" in err_msg or "UNAVAILABLE" in err_msg) and attempt < max_retries:
-                    wait_sec = 10 * attempt
+                    wait_sec = min_wait_sec * attempt
                     # 若有建議等待秒數則取用
                     try:
                         import re as _re
                         m = _re.search(r'retry in (\d+)', err_msg)
                         if m:
-                            wait_sec = int(m.group(1))
+                            wait_sec = max(wait_sec, int(m.group(1)))
                     except Exception:
                         pass
-                    # 可加上 log: print(f"[Gemini] 第{attempt}次遇到暫時性錯誤，{wait_sec}秒後重試...\n{err_msg}")
+                    # print(f"[Gemini] 第{attempt}次遇到暫時性錯誤，{wait_sec}秒後重試...\n{err_msg}")
                     _time.sleep(wait_sec)
                     continue
                 else:

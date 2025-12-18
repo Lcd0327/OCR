@@ -8,6 +8,8 @@
 pip install azure-cognitiveservices-vision-computervision
 pip install msrest
 pip install python-dotenv
+pip install opencv-python
+pip install genai
 ```
 ## 架構說明
 
