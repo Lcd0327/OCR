@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\food_service_resume_sample.png",
-  "timestamp": 1765964374,
+  "timestamp": 1766061548,
   "total_pages": 1,
   "pages": [
     {
@@ -118,8 +118,8 @@
       "Email": true
     },
     "gemini_score": {
-      "score": 0,
-      "reason": "Gemini 回傳錯誤: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}"
+      "score": 55,
+      "reason": "優點是職涯軌跡清晰，具備從基層晉升至管理職的完整歷練，且擁有兩張直接相關的乙級證照，展現專業基礎。然而，履歷存在數個重大扣分項：1. 工作經歷停在2017年，近年的職涯空窗期未說明，是最大疑慮。2. 工作內容缺乏量化數據與具體成就，例如管理的團隊規模、達成的業績目標等，無法凸顯管理績效。3. 教育背景資訊過於模糊（未列出校系）。4. 格式與細節有誤（聯絡資訊重複、職稱錯字），影響專業形象。"
     }
   }
 }

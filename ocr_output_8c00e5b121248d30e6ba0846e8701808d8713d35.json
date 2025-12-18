@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\8c00e5b121248d30e6ba0846e8701808d8713d35.jpg",
-  "timestamp": 1765964204,
+  "timestamp": 1766061479,
   "total_pages": 1,
   "pages": [
     {
@@ -192,8 +192,8 @@
       "Email": true
     },
     "gemini_score": {
-      "score": 0,
-      "reason": "Gemini 回傳錯誤: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}"
+      "score": 68,
+      "reason": "優點在於學經歷與應徵職務高度相關（餐飲科系、外場經驗），且具備量化工作成果（提升顧客滿意度15%）與社團領導經驗，展現了合適的硬實力與軟實力。然而，履歷中出現多處明顯錯字、語句不順及排版混亂問題，嚴重影響專業度，也讓雇主對其細心程度產生疑慮，是主要扣分項目。"
     }
   }
 }

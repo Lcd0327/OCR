@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\1.pdf",
-  "timestamp": 1765964132,
+  "timestamp": 1766061453,
   "total_pages": 2,
   "pages": [
     {
@@ -132,8 +132,8 @@
       "Email": true
     },
     "gemini_score": {
-      "score": 0,
-      "reason": "Gemini 回傳錯誤: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}"
+      "score": 95,
+      "reason": "履歷內容極度亮眼，專業技能（HPC, ROCm, C++）與應徵領域高度相關。具備國家級中心實習經驗、國際級競賽（SCC）國手培訓資格，以及對知名開源專案（ROCm）的實際貢獻，這些都是同儕中極罕見的成就。專案描述包含量化成果，能有效展現解決問題的能力與影響力。整體而言，這是一位展現出高度熱情、實作能力與潛力的頂尖人才。（註：履歷排版混亂，但此處僅針對內容評分）"
     }
   }
 }

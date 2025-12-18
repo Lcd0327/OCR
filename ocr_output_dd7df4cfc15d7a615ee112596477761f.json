@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\dd7df4cfc15d7a615ee112596477761f.jpg",
-  "timestamp": 1765964323,
+  "timestamp": 1766061527,
   "total_pages": 1,
   "pages": [
     {
@@ -191,8 +191,8 @@
       "Email": true
     },
     "gemini_score": {
-      "score": 0,
-      "reason": "Gemini 回傳錯誤: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'The model is overloaded. Please try again later.', 'status': 'UNAVAILABLE'}}"
+      "score": 10,
+      "reason": "此份履歷為範本填充內容 (Lorem ipsum)，缺乏任何可評估的個人真實資訊。從結構上看，存在多項問題：1. 區塊標題混亂且有拼寫錯誤 (如 SKILLS EXPERIEN)。 2. 聯絡資訊在多處重複，版面冗餘。 3. 工作經歷完全沒有描述具體職責、專案成果或量化指標，無法展現候選人的價值。 4. 技能與技術專長分類不清。綜合來看，這僅是一個結構欠佳的模板，而非一份能代表專業能力的履歷，無法用於任何招募評估。"
     }
   }
 }

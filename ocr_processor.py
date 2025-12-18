@@ -335,7 +335,7 @@ class OCRProcessor:
 
 
     def _gemini_score_resume(self, resume_text: str) -> dict:
-        """呼叫 Gemini API 以 AI 給分，需設好 GEMINI_API_KEY (google-genai)，自動重試429/503等暫時性錯誤"""
+        """呼叫 Gemini API 以 AI 給分"""
         import json as _json
         import time as _time
         if genai is None:
@@ -354,7 +354,7 @@ class OCRProcessor:
                     "請回傳 JSON 格式，如：{\"score\": 85, \"reason\": \"內容完整，經歷豐富\"}"
                 )
                 response = client.models.generate_content(
-                    model='gemini-2.5-flash',
+                    model='gemini-2.5-pro',
                     contents=prompt,
                     config={
                         'temperature': 0.2,
