@@ -1,6 +1,6 @@
 {
-  "file_path": "D:\\Code\\OCR\\assets\\dd7df4cfc15d7a615ee112596477761f.jpg",
-  "timestamp": 1766061527,
+  "file_path": "C:\\Users\\gary3\\Code\\OCR\\assets\\dd7df4cfc15d7a615ee112596477761f.jpg",
+  "timestamp": 1766114796,
   "total_pages": 1,
   "pages": [
     {
@@ -191,8 +191,12 @@
       "Email": true
     },
     "gemini_score": {
-      "score": 10,
-      "reason": "此份履歷為範本填充內容 (Lorem ipsum)，缺乏任何可評估的個人真實資訊。從結構上看，存在多項問題：1. 區塊標題混亂且有拼寫錯誤 (如 SKILLS EXPERIEN)。 2. 聯絡資訊在多處重複，版面冗餘。 3. 工作經歷完全沒有描述具體職責、專案成果或量化指標，無法展現候選人的價值。 4. 技能與技術專長分類不清。綜合來看，這僅是一個結構欠佳的模板，而非一份能代表專業能力的履歷，無法用於任何招募評估。"
+      "score": 5,
+      "reason": "此履歷內容基本上是一個未填寫的模板，關鍵資訊如個人簡介(Profile)、工作經歷的具體職責與成就(Accomplishments)皆使用'Lorem ipsum'等預設文字填充。這使得人資完全無法評估您的專業能力、過往績效與貢獻。雖然技能列表(Skills/Expertise)點出了相關的專業技能（如UX/UI設計、Sketch），但缺乏實際工作經驗的內容來支撐這些說法，因此這份履歷幾乎沒有參考價值。"
+    },
+    "original_file_score": {
+      "score": 0,
+      "reason": "Gemini 視覺 API 錯誤: from_data"
     }
   }
 }

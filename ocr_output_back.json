@@ -1,6 +1,6 @@
 {
-  "file_path": "D:\\Code\\OCR\\assets\\back.jpg",
-  "timestamp": 1766061504,
+  "file_path": "C:\\Users\\gary3\\Code\\OCR\\assets\\back.jpg",
+  "timestamp": 1766114774,
   "total_pages": 1,
   "pages": [
     {
@@ -107,8 +107,12 @@
       "Email": false
     },
     "gemini_score": {
-      "score": 10,
-      "reason": "此份履歷的得分極低，主要原因如下：1. 內容混亂且難以閱讀：履歷中充滿大量亂碼、錯字（如 Soctet, Stid）、以及無意義的日文與符號，專業度嚴重不足。2. 聯絡資訊錯誤：提供的手機號碼格式顯然有誤，導致無法聯繫候選人，這是履歷最致命的缺陷。3. 缺乏基本結構：資訊分類不清，無法有效區分學經歷、技能等區塊，例如將工作期間標示為「Phone」。儘管內容中隱約可見部分技術關鍵字（如 Node.js, Golang），但整體呈現方式完全不合格，無法讓招募者進行有效評估，建議完全重寫。"
+      "score": 5,
+      "reason": "資訊極度破碎且難以理解。履歷中包含大量無意義的字符、亂碼與錯字，且聯絡方式無效。雖然列出了一些技術關鍵字（如 Node.js, Golang），但完全缺乏工作經歷、職務內容或學歷等關鍵資訊，並夾雜不專業的語句。這份內容無法讓招募者評估候選人的專業能力與適任性，幾乎沒有參考價值。"
+    },
+    "original_file_score": {
+      "score": 0,
+      "reason": "Gemini 視覺 API 錯誤: from_data"
     }
   }
 }

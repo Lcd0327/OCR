@@ -349,7 +349,7 @@ class OCRProcessor:
             try:
                 client = genai.Client(api_key=api_key)
                 prompt = (
-                    "請以專業人資角度，針對以下履歷內容給一個 0~100 分的分數，並簡要說明理由：\n"
+                    "請以專業人資角度，針對以下履歷內容給一個 0~100 分的分數，忽略排版與結構，只針對內容評分，並簡要說明理由：\n"
                     f"{resume_text}\n"
                     "請回傳 JSON 格式，如：{\"score\": 85, \"reason\": \"內容完整，經歷豐富\"}"
                 )
@@ -389,10 +389,100 @@ class OCRProcessor:
         # 若重試後仍失敗
         return {"score": 0, "reason": "Gemini 多次暫時性錯誤，請稍後再試"}
 
-    def _score_resume(self, pages: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """根據聯絡資訊、關鍵字與行數給予簡易評分，並可引入 Gemini AI 評分"""
+    def _gemini_score_original_file(self, file_path: str) -> dict:
+        """呼叫 Gemini Vision API 針對原始檔案進行評分（支援圖像格式）"""
+        import json as _json
+        import time as _time
+        import base64
+        
+        # 檢查檔案是否為支援的圖像格式
+        ext = os.path.splitext(file_path)[1].lower()
+        if ext not in {'.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif'}:
+            return {"score": 0, "reason": f"原始檔案格式 {ext} 不支援視覺 API"}
+        
+        if not os.path.exists(file_path):
+            return {"score": 0, "reason": "原始檔案不存在"}
+        
+        if genai is None:
+            return {"score": 0, "reason": "google-genai 套件未安裝"}
+        
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            return {"score": 0, "reason": "未設定 GEMINI_API_KEY"}
+        
+        max_retries = 3
+        min_wait_sec = 13
+        
+        for attempt in range(1, max_retries + 1):
+            try:
+                client = genai.Client(api_key=api_key)
+                
+                # 讀取圖像並編碼為 base64
+                with open(file_path, 'rb') as f:
+                    image_data = base64.standard_b64encode(f.read()).decode('utf-8')
+                
+                # 根據副檔名判斷 MIME 類型
+                mime_type_map = {
+                    '.jpg': 'image/jpeg',
+                    '.jpeg': 'image/jpeg',
+                    '.png': 'image/png',
+                    '.bmp': 'image/bmp',
+                    '.tiff': 'image/tiff',
+                    '.tif': 'image/tiff'
+                }
+                mime_type = mime_type_map.get(ext, 'image/jpeg')
+                
+                prompt = (
+                    "這是一份履歷的掃描影像。請以專業人資角度，根據整個文件的視覺佈局、內容完整度與專業程度，"
+                    "給一個 0~100 分的分數，並簡要說明理由。請特別注意：\n"
+                    "- 佈局是否清晰有序\n"
+                    "- 內容是否完整（聯絡資訊、工作經歷、學歷等）\n"
+                    "- 排版與視覺專業度\n"
+                    "- 文字清晰度與可讀性\n\n"
+                    "請回傳 JSON 格式，如：{\"score\": 85, \"reason\": \"佈局清晰，內容完整，排版專業\"}"
+                )
+                
+                response = client.models.generate_content(
+                    model='gemini-2.5-pro',
+                    contents=[
+                        types.Part.from_data(data=image_data, mime_type=mime_type),
+                        prompt
+                    ],
+                    config={
+                        'temperature': 0.2,
+                        'top_p': 0.95,
+                        'top_k': 20,
+                    },
+                )
+                
+                content = response.text if hasattr(response, 'text') else response.candidates[0].content.parts[0].text
+                content = content.strip().lstrip("```json").rstrip("```")
+                ai_result = _json.loads(content)
+                client.close()
+                return ai_result
+            except Exception as e:
+                err_msg = str(e)
+                if ("429" in err_msg or "RESOURCE_EXHAUSTED" in err_msg or "503" in err_msg or "UNAVAILABLE" in err_msg) and attempt < max_retries:
+                    wait_sec = min_wait_sec * attempt
+                    try:
+                        import re as _re
+                        m = _re.search(r'retry in (\d+)', err_msg)
+                        if m:
+                            wait_sec = max(wait_sec, int(m.group(1)))
+                    except Exception:
+                        pass
+                    _time.sleep(wait_sec)
+                    continue
+                else:
+                    ai_result = {"score": 0, "reason": f"Gemini 視覺 API 錯誤: {e}"}
+                    return ai_result
+        
+        return {"score": 0, "reason": "Gemini 視覺 API 多次暫時性錯誤，請稍後再試"}
+
+    def _score_resume(self, pages: List[Dict[str, Any]], file_path: str = None) -> Dict[str, Any]:
+        """根據聯絡資訊、關鍵字與行數給予簡易評分，並可引入 Gemini AI 評分（OCR 文本 + 原始檔案）"""
         if not pages:
-            return {"score": 0, "components": {}, "keywords_found": [], "gemini_score": {}}
+            return {"score": 0, "components": {}, "keywords_found": [], "gemini_score": {}, "original_file_score": {}}
 
         combined_texts: List[str] = []
         total_lines = 0
@@ -448,8 +538,13 @@ class OCRProcessor:
 
         total_score = min(100, contact_score + keyword_score + length_score + extra_signal)
 
-        # Gemini AI 評分
+        # Gemini AI 評分（OCR 文本）
         gemini_score = self._gemini_score_resume(full_text)
+        
+        # Gemini Vision API 評分（原始檔案）
+        original_file_score = {}
+        if file_path:
+            original_file_score = self._gemini_score_original_file(file_path)
 
         return {
             "score": total_score,
@@ -462,7 +557,8 @@ class OCRProcessor:
             "keywords_found": keywords_found,
             "total_lines": total_lines,
             "contact_presence": contact_presence,
-            "gemini_score": gemini_score
+            "gemini_score": gemini_score,
+            "original_file_score": original_file_score
         }
 
     def process_page(self, page, page_number: int) -> Dict[str, Any]:
@@ -580,7 +676,7 @@ class OCRProcessor:
                 page_payload = self.process_page(page, idx + 1)
                 out["pages"].append(page_payload)
 
-            out["resume_score"] = self._score_resume(out["pages"])
+            out["resume_score"] = self._score_resume(out["pages"], file_path)
 
             return True, out
         except Exception as e:
