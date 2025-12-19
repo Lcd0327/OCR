@@ -262,8 +262,6 @@ class OCRProcessor:
             pairs.append({"key": pending_key, "value": ""})
         return pairs
 
-
-    #TODO: visual layout analysis (tables, columns) can be added in future enhancements and formatting
     def _extract_compact_contact(self, rows: List[Dict[str, Any]]) -> Dict[str, str]:
         """從 rows 嘗試擷取並把姓名/手機/Email 盡量排在一起回傳（不含座標）"""
         email = ""

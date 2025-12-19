@@ -9,6 +9,7 @@ pip install azure-cognitiveservices-vision-computervision
 pip install msrest
 pip install python-dotenv
 pip install opencv-python
+pip install google
 pip install genai
 ```
 ## 架構說明
@@ -82,9 +83,3 @@ success, result = processor.process_file("path/to/file.pdf")
 3. 加入進度條顯示
 4. 支援更多輸出格式
 5. 加入日誌記錄功能
-
-## TODO
-1. 影像銳利化
-2. 去噪
-3. 超分辨率
-4. 邊緣對比
