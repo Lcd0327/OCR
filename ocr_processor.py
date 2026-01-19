@@ -720,7 +720,7 @@ class OCRProcessor:
                 result = self.client.get_read_result(operation_id)
                 if result.status not in ['notStarted', 'running']:
                     break
-                time.sleep(0.8)
+                time.sleep(0.5)
 
             if result.status != OperationStatusCodes.succeeded:
                 return False, {"error": f"OCR 失敗: {result.status}"}

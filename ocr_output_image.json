@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\image.png",
-  "timestamp": 1768796902,
+  "timestamp": 1768800850,
   "total_pages": 1,
   "pages": [
     {
@@ -64,8 +64,8 @@
       "Email": false
     },
     "gemini_score": {
-      "score": 5,
-      "reason": "內容極度破碎且充滿拼寫錯誤，幾乎無法理解。雖然提及『GPU』等技術關鍵字，但完全沒有上下文來描述具體的專案、職責或成就。從人資角度來看，這份內容無法提供任何有效的評估依據，資訊量趨近於零。"
+      "score": 10,
+      "reason": "內容提及 GPU、National Center 等關鍵字，但整體資訊極度破碎且無法理解。缺乏具體的職位、專案內容、個人貢獻以及量化成果，導致無法評估申請者的專業能力與實際經驗。"
     },
     "original_file_score": {
       "score": 0,

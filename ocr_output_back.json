@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\back.jpg",
-  "timestamp": 1768796834,
+  "timestamp": 1768800781,
   "total_pages": 1,
   "pages": [
     {
@@ -107,8 +107,8 @@
       "Email": false
     },
     "gemini_score": {
-      "score": 15,
-      "reason": "內容包含大量無意義的文字、錯字與非專業內容，導致資訊混亂且難以理解。雖然列舉了部分技術關鍵字（如 Node.js, Golang），但完全缺乏工作經歷、專案內容或成就的具體描述，使人資無法評估其實際能力與經驗。"
+      "score": 10,
+      "reason": "內容極度混亂、難以理解，夾雜大量無意義或不專業的文字。聯絡方式明顯無效，且完全缺乏可辨識的學經歷、工作職責或成就說明。唯一可取之處是列出多項技術關鍵字 (如 Node.js, Golang)，但此優點完全被前述的重大缺陷所掩蓋，導致履歷幾乎不具備任何參考價值，無法進行有效評估。"
     },
     "original_file_score": {
       "score": 0,
