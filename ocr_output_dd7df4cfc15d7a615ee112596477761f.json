@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\dd7df4cfc15d7a615ee112596477761f.jpg",
-  "timestamp": 1767717538,
+  "timestamp": 1768796855,
   "total_pages": 1,
   "pages": [
     {
@@ -191,8 +191,12 @@
       "Email": true
     },
     "gemini_score": {
-      "score": 5,
-      "reason": "此份履歷基本上是一個未完成的模板，核心內容（如個人簡介、工作經歷）均為預設填充文字，完全無法評估候選人的專業能力與經驗。此外，文件存在多處拼寫錯誤（如 PROFFESSIONAL, EXPERIEN）與格式混亂問題，顯示出極度草率與不專業的態度，在第一關就會被立即汰除。"
+      "score": 10,
+      "reason": "此履歷內容幾乎完全由範本文字 (Lorem ipsum) 和通用標題組成，缺乏任何關於個人經驗、成就或具體職責的實質性描述。雖然列出了與職位相關的技能和工具，但沒有任何情境或成果來證明其熟練度。因此，這份履歷無法讓招募者評估候選人的適任性，內容價值極低。"
+    },
+    "original_file_score": {
+      "score": 0,
+      "reason": "Gemini 視覺 API 錯誤: from_data"
     }
   }
 }

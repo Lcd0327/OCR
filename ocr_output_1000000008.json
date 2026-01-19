@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\1000000008.jpg",
-  "timestamp": 1767717418,
+  "timestamp": 1768796751,
   "total_pages": 1,
   "pages": [
     {
@@ -58,7 +58,11 @@
     },
     "gemini_score": {
       "score": 5,
-      "reason": "履歷內容極度破碎且無法辨識。缺乏如聯絡方式、完整學經歷等所有關鍵資訊，且充滿不明確的詞彙與拼寫錯誤，使人資完全無法評估應徵者的背景與能力。"
+      "reason": "內容極度破碎且資訊嚴重不足，幾乎無法從中獲取任何有效資訊。雖然提到了「contributions」和「project」，但完全沒有任何實質的細節描述，無法判斷求職者的專業背景、技能、經歷或成就，因此無法進行任何有效的評估。"
+    },
+    "original_file_score": {
+      "score": 0,
+      "reason": "Gemini 視覺 API 錯誤: from_data"
     }
   }
 }

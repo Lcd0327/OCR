@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\back.jpg",
-  "timestamp": 1767717514,
+  "timestamp": 1768796834,
   "total_pages": 1,
   "pages": [
     {
@@ -107,8 +107,12 @@
       "Email": false
     },
     "gemini_score": {
-      "score": 5,
-      "reason": "履歷排版極度混亂，資訊破碎且難以閱讀。內容包含大量無意義的字元、多處錯字與不相關的內容，且缺乏工作經歷、學歷等關鍵資訊。聯絡方式亦有明顯錯誤，完全不符合專業文件的基本要求，無法讓招募者有效評估。"
+      "score": 15,
+      "reason": "內容包含大量無意義的文字、錯字與非專業內容，導致資訊混亂且難以理解。雖然列舉了部分技術關鍵字（如 Node.js, Golang），但完全缺乏工作經歷、專案內容或成就的具體描述，使人資無法評估其實際能力與經驗。"
+    },
+    "original_file_score": {
+      "score": 0,
+      "reason": "Gemini 視覺 API 錯誤: from_data"
     }
   }
 }
