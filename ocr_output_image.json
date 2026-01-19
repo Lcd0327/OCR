@@ -1,0 +1,71 @@
+{
+  "file_path": "D:\\Code\\OCR\\assets\\image.png",
+  "timestamp": 1767717594,
+  "total_pages": 1,
+  "pages": [
+    {
+      "page_number": 1,
+      "reading_order_lines": [
+        "itch",
+        "to",
+        "National center",
+        "In the AND.RO",
+        "nce.",
+        "branie",
+        "GPUICCSOURCE",
+        ":leveraging.RAIL",
+        "codes",
+        ".edudoplbollerplate'",
+        "GPU"
+      ],
+      "grouped_lines": [
+        "itch",
+        "National center to",
+        "nce. In the AND.RO",
+        "branie",
+        ":leveraging.RAIL GPUICCSOURCE",
+        "GPU .edudoplbollerplate' codes"
+      ],
+      "structured_lines": [
+        "itch",
+        "National center to",
+        "nce. In the AND.RO",
+        "branie",
+        "leveraging.RAIL GPUICCSOURCE",
+        "GPU .edudoplbollerplate' codes"
+      ],
+      "page_text": "itch\nto\nNational center\nIn the AND.RO\nnce.\nbranie\nGPUICCSOURCE\n:leveraging.RAIL\ncodes\n.edudoplbollerplate'\nGPU",
+      "formatted_text": "姓名: itch\n\nitch\nNational center to\nnce. In the AND.RO\nbranie\nleveraging.RAIL GPUICCSOURCE\nGPU .edudoplbollerplate' codes",
+      "compact_contact": {
+        "姓名": "itch",
+        "手機": "",
+        "Email": ""
+      },
+      "total_lines": 11
+    }
+  ],
+  "preprocess": {
+    "enabled": true,
+    "applied": true
+  },
+  "resume_score": {
+    "score": 14,
+    "components": {
+      "contact": 10,
+      "keywords": 0,
+      "length": 4,
+      "extra": 0
+    },
+    "keywords_found": [],
+    "total_lines": 11,
+    "contact_presence": {
+      "姓名": true,
+      "手機": false,
+      "Email": false
+    },
+    "gemini_score": {
+      "score": 5,
+      "reason": "履歷內容呈現嚴重破碎且語意不清，無法辨識出求職者的基本資料、完整學經歷、專業技能或個人聯絡方式。從人資角度來看，這份文件資訊量過低，幾乎無法進行任何有效的評估，也顯示求職者在準備文件上極度缺乏嚴謹度。"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "file_path": "D:\\Code\\OCR\\assets\\1000000008.jpg",
+  "timestamp": 1767717418,
+  "total_pages": 1,
+  "pages": [
+    {
+      "page_number": 1,
+      "reading_order_lines": [
+        "tions",
+        "ucu",
+        "contributions",
+        "and ROC",
+        "m HOCHPU",
+        "1proje"
+      ],
+      "grouped_lines": [
+        "tions",
+        "ucu",
+        "contributions",
+        "m HOCHPU and ROC",
+        "1proje"
+      ],
+      "structured_lines": [
+        "tions",
+        "ucu",
+        "contributions",
+        "m HOCHPU and ROC",
+        "1proje"
+      ],
+      "page_text": "tions\nucu\ncontributions\nand ROC\nm HOCHPU\n1proje",
+      "formatted_text": "姓名: tions\n\ntions\nucu\ncontributions\nm HOCHPU and ROC\n1proje",
+      "compact_contact": {
+        "姓名": "tions",
+        "手機": "",
+        "Email": ""
+      },
+      "total_lines": 6
+    }
+  ],
+  "preprocess": {
+    "enabled": true,
+    "applied": true
+  },
+  "resume_score": {
+    "score": 14,
+    "components": {
+      "contact": 10,
+      "keywords": 0,
+      "length": 4,
+      "extra": 0
+    },
+    "keywords_found": [],
+    "total_lines": 6,
+    "contact_presence": {
+      "姓名": true,
+      "手機": false,
+      "Email": false
+    },
+    "gemini_score": {
+      "score": 5,
+      "reason": "履歷內容極度破碎且無法辨識。缺乏如聯絡方式、完整學經歷等所有關鍵資訊，且充滿不明確的詞彙與拼寫錯誤，使人資完全無法評估應徵者的背景與能力。"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "file_path": "D:\\Code\\OCR\\assets\\1000000009.jpg",
+  "timestamp": 1767717437,
+  "total_pages": 1,
+  "pages": [
+    {
+      "page_number": 1,
+      "reading_order_lines": [
+        "Jon.",
+        "IP/RO",
+        "CUDA IO!",
+        "Relati",
+        "TARDI"
+      ],
+      "grouped_lines": [
+        "Jon.",
+        "Relati CUDA IO! IP/RO",
+        "TARDI"
+      ],
+      "structured_lines": [
+        "Jon.",
+        "Relati CUDA IO! IP/RO",
+        "TARDI"
+      ],
+      "page_text": "Jon.\nIP/RO\nCUDA IO!\nRelati\nTARDI",
+      "formatted_text": "姓名: Jon.\n\nJon.\nRelati CUDA IO! IP/RO\nTARDI",
+      "compact_contact": {
+        "姓名": "Jon.",
+        "手機": "",
+        "Email": ""
+      },
+      "total_lines": 5
+    }
+  ],
+  "preprocess": {
+    "enabled": true,
+    "applied": true
+  },
+  "resume_score": {
+    "score": 14,
+    "components": {
+      "contact": 10,
+      "keywords": 0,
+      "length": 4,
+      "extra": 0
+    },
+    "keywords_found": [],
+    "total_lines": 5,
+    "contact_presence": {
+      "姓名": true,
+      "手機": false,
+      "Email": false
+    },
+    "gemini_score": {
+      "score": 5,
+      "reason": "履歷缺乏最基本的個人聯繫方式、學經歷、技能說明等關鍵資訊。內容以零散的字詞組成，語意不明且格式極度不專業，使人資完全無法評估候選人的背景與能力，不具備一份有效履歷的任何條件。"
+    }
+  }
+}

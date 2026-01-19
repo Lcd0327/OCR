@@ -1,0 +1,90 @@
+{
+  "file_path": "D:\\Code\\OCR\\assets\\2.png",
+  "timestamp": 1767717460,
+  "total_pages": 1,
+  "pages": [
+    {
+      "page_number": 1,
+      "reading_order_lines": [
+        "contributions",
+        "RoCT Ecosystem Contributions",
+        "PROCm rockPLE Ada g1x1201 Und ROCm- 0 upport. Updated CMake build logie to suppe",
+        "Uien 0X1201(ADNA4) frenteaureyresomni hardware compatibility issues.forb",
+        "GitHub Linguist ; Add HIP language support. Added syntax highlighting po",
+        "de tausucc tend readability for global projects .;",
+        "Github glumoras AdquiDoitignore sundaronedisuite anore templates for MID",
+        "Community",
+        "TANET & NCS 2021 - Conference Stall",
+        "ISITCON X : Socater (Topic Project Introduction . System programming)",
+        "Q:SCIST 53 Algorithm Course ,Online Teaching Assistantif",
+        "Withdel Electrical Corineerin Club -Club Instructor-",
+        "Southern tilno schooli Information.Club Tam Nentor (Jointes party & Winter,Training)",
+        "ha lational Tainan Industrial High School Web'Deslin Club Preslocal & Instructor!"
+      ],
+      "grouped_lines": [
+        "contributions",
+        "RoCT Ecosystem Contributions",
+        "PROCm rockPLE Ada g1x1201 Und ROCm- 0 upport. Updated CMake build logie to suppe",
+        "Uien 0X1201(ADNA4) frenteaureyresomni hardware compatibility issues.forb",
+        "GitHub Linguist ; Add HIP language support. Added syntax highlighting po",
+        "de tausucc tend readability for global projects .;",
+        "Github glumoras AdquiDoitignore sundaronedisuite anore templates for MID",
+        "Community",
+        "TANET & NCS 2021 - Conference Stall",
+        "ISITCON X : Socater (Topic Project Introduction . System programming)",
+        "Q:SCIST 53 Algorithm Course ,Online Teaching Assistantif",
+        "Withdel Electrical Corineerin Club -Club Instructor-",
+        "Southern tilno schooli Information.Club Tam Nentor (Jointes party & Winter,Training)",
+        "ha lational Tainan Industrial High School Web'Deslin Club Preslocal & Instructor!"
+      ],
+      "structured_lines": [
+        "contributions",
+        "RoCT Ecosystem Contributions",
+        "PROCm rockPLE Ada g1x1201 Und ROCm- 0 upport. Updated CMake build logie to suppe",
+        "Uien 0X1201(ADNA4) frenteaureyresomni hardware compatibility issues.forb",
+        "GitHub Linguist ; Add HIP language support. Added syntax highlighting po",
+        "de tausucc tend readability for global projects .;",
+        "Github glumoras AdquiDoitignore sundaronedisuite anore templates for MID",
+        "Community",
+        "TANET & NCS 2021 - Conference Stall",
+        "ISITCON X: Socater (Topic Project Introduction . System programming)",
+        "Q: SCIST 53 Algorithm Course ,Online Teaching Assistantif",
+        "Withdel Electrical Corineerin Club -Club Instructor-",
+        "Southern tilno schooli Information.Club Tam Nentor (Jointes party & Winter,Training)",
+        "ha lational Tainan Industrial High School Web'Deslin Club Preslocal & Instructor!"
+      ],
+      "page_text": "contributions\nRoCT Ecosystem Contributions\nPROCm rockPLE Ada g1x1201 Und ROCm- 0 upport. Updated CMake build logie to suppe\nUien 0X1201(ADNA4) frenteaureyresomni hardware compatibility issues.forb\nGitHub Linguist ; Add HIP language support. Added syntax highlighting po\nde tausucc tend readability for global projects .;\nGithub glumoras AdquiDoitignore sundaronedisuite anore templates for MID\nCommunity\nTANET & NCS 2021 - Conference Stall\nISITCON X : Socater (Topic Project Introduction . System programming)\nQ:SCIST 53 Algorithm Course ,Online Teaching Assistantif\nWithdel Electrical Corineerin Club -Club Instructor-\nSouthern tilno schooli Information.Club Tam Nentor (Jointes party & Winter,Training)\nha lational Tainan Industrial High School Web'Deslin Club Preslocal & Instructor!",
+      "formatted_text": "姓名: contributions\n\ncontributions\nRoCT Ecosystem Contributions\nPROCm rockPLE Ada g1x1201 Und ROCm- 0 upport. Updated CMake build logie to suppe\nUien 0X1201(ADNA4) frenteaureyresomni hardware compatibility issues.forb\nGitHub Linguist ; Add HIP language support. Added syntax highlighting po\nde tausucc tend readability for global projects .;\nGithub glumoras AdquiDoitignore sundaronedisuite anore templates for MID\nCommunity\nTANET & NCS 2021 - Conference Stall\nISITCON X: Socater (Topic Project Introduction . System programming)\nQ: SCIST 53 Algorithm Course ,Online Teaching Assistantif\nWithdel Electrical Corineerin Club -Club Instructor-\nSouthern tilno schooli Information.Club Tam Nentor (Jointes party & Winter,Training)\nha lational Tainan Industrial High School Web'Deslin Club Preslocal & Instructor!",
+      "compact_contact": {
+        "姓名": "contributions",
+        "手機": "",
+        "Email": ""
+      },
+      "total_lines": 14
+    }
+  ],
+  "preprocess": {
+    "enabled": true,
+    "applied": true
+  },
+  "resume_score": {
+    "score": 14,
+    "components": {
+      "contact": 10,
+      "keywords": 0,
+      "length": 4,
+      "extra": 0
+    },
+    "keywords_found": [],
+    "total_lines": 14,
+    "contact_presence": {
+      "姓名": true,
+      "手機": false,
+      "Email": false
+    },
+    "gemini_score": {
+      "score": 78,
+      "reason": "優點：履歷內容展現了極高的技術深度與主動性，尤其在 ROCm 生態系的開源貢獻具體且有影響力，顯示了應徵者在系統程式設計領域的專業能力。此外，豐富的社群參與經驗（演講者、助教、指導老師）突顯了良好的溝通、教學與領導能力。缺點：內容呈現上有非常多錯字與不通順的語句，這會讓專業度大打折扣，並讓閱讀者對其細心程度產生疑慮。整體而言，經歷含金量高，但表達與排版方式有極大的改善空間。"
+    }
+  }
+}

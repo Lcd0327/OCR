@@ -1,3 +1,33 @@
+def normalize_text_lines(lines: list) -> list:
+    """
+    將 lines (list of str) 進行常見錯別字與不常用字修正，回傳修正後的新 list。
+    """
+    # 定義常見錯字與修正對應表（可依需求擴充）
+    replacements = [
+        ("有與趣", "有興趣"),
+        ("發照打工", "打工"),
+        ("取容消逝", "與顧客溝通"),
+        ("頭客服務態度", "良好的服務態度"),
+        ("餐飲然的工作環境", "餐飲業的工作環境"),
+        ("並苦於快速而對各", "並能快速應對各"),
+        ("絕心", "細心"),
+        ("閱爵", "閱讀"),
+        ("致與人溝通", "善於與人溝通"),
+        ("康納社", "康輔社"),
+        ("活動計班", "活動企劃"),
+        ("備案", "備案"),  # 若有誤可再調整
+        ("旦", ""),  # 若語意不通時移除
+        ("意度。", "意見。"),
+        ("技能: ,並苦於快速而對各", ""),
+        ("技能: 。", ""),
+        ("0", ""),  # 結尾孤立 0
+        ("10:00-18:0", "10:00-18:00"),
+    ]
+    def replace_all(text):
+        for old, new in replacements:
+            text = text.replace(old, new)
+        return text
+    return [replace_all(line) for line in lines]
 import io
 import os
 import time
@@ -82,6 +112,41 @@ class TextLine:
         return {"text": self.text, "x1": self.x1, "y1": self.y1, "x2": self.x2, "y2": self.y2}
 
 class OCRProcessor:
+    def normalize_page_text_fields(self, page: dict) -> dict:
+        """
+        對 page dict 內的主要文字欄位（reading_order_lines, grouped_lines, structured_lines, page_text, formatted_text）進行常用字/錯字修正。
+        回傳修正後的新 dict（不會修改原 dict）。"""
+        new_page = dict(page)
+        for key in ["reading_order_lines", "grouped_lines", "structured_lines"]:
+            if key in new_page and isinstance(new_page[key], list):
+                new_page[key] = normalize_text_lines(new_page[key])
+        # page_text 與 formatted_text 是 str，需分行處理
+        for key in ["page_text", "formatted_text"]:
+            if key in new_page and isinstance(new_page[key], str):
+                lines = new_page[key].split("\n")
+                new_page[key] = "\n".join(normalize_text_lines(lines))
+        return new_page
+
+    def normalize_ocr_json_file(self, ocr_json_path: str, output_path: str = None) -> str:
+        """
+        讀取 OCR JSON 檔，將每頁主要文字欄位進行常用字/錯字修正，並存回新檔案。
+        """
+        with open(ocr_json_path, 'r', encoding='utf-8') as f:
+            ocr_json = json.load(f)
+        new_pages = []
+        for page in ocr_json.get("pages", []):
+            new_pages.append(self.normalize_page_text_fields(page))
+        ocr_json["pages"] = new_pages
+        # 重新計算 resume_score
+        ocr_json["resume_score"] = self._score_resume(new_pages)
+        if not output_path:
+            base = os.path.basename(ocr_json_path)
+            name, _ = os.path.splitext(base)
+            output_path = f"normalized_{name}.json"
+        with open(output_path, 'w', encoding='utf-8') as f:
+            json.dump(ocr_json, f, ensure_ascii=False, indent=2)
+        return output_path
+    
     """簡化的 OCR 處理器：重點是按順序抓行並做 key/value 偵測"""
     def __init__(self, config: OCRConfig = None):
         self.config = config or OCRConfig()
