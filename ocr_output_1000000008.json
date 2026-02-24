@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\1000000008.jpg",
-  "timestamp": 1768800695,
+  "timestamp": 1769672696,
   "total_pages": 1,
   "pages": [
     {
@@ -57,8 +57,10 @@
       "Email": false
     },
     "gemini_score": {
-      "score": 5,
-      "reason": "內容極度破碎且無法辨識，缺乏姓名、學經歷、技能等所有履歷應有的關鍵資訊，完全無法評估求職者的背景與能力。"
+      "score": 10,
+      "reason": [
+        "履歷內容極度不完整，僅包含看似姓名及部分關鍵字，無法判斷應徵者背景、技能或經驗，缺乏任何實質資訊。"
+      ]
     },
     "original_file_score": {
       "score": 0,

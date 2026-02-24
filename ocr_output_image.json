@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\image.png",
-  "timestamp": 1768800850,
+  "timestamp": 1769672776,
   "total_pages": 1,
   "pages": [
     {
@@ -64,8 +64,11 @@
       "Email": false
     },
     "gemini_score": {
-      "score": 10,
-      "reason": "內容提及 GPU、National Center 等關鍵字，但整體資訊極度破碎且無法理解。缺乏具體的職位、專案內容、個人貢獻以及量化成果，導致無法評估申請者的專業能力與實際經驗。"
+      "score": 5,
+      "reason": [
+        "履歷內容極度缺乏資訊，無法判斷應徵者能力與經驗。提供的文字片段無法辨識姓名以外的任何有效資訊，無法評",
+        "估其專業技能或經歷。缺乏明確的職位目標、工作經歷、學歷等基本資訊。"
+      ]
     },
     "original_file_score": {
       "score": 0,

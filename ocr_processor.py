@@ -397,6 +397,13 @@ class OCRProcessor:
         return {"姓名": name or "", "手機": phone or "", "Email": email or ""}
 
 
+
+    def _wrap_text(self, text: str, width: int = 50) -> list:
+        """將文字每 width 個字元切分，回傳 list"""
+        if not text: 
+            return []
+        return [text[i:i+width] for i in range(0, len(text), width)]
+
     def _gemini_score_resume(self, resume_text: str) -> dict:
         """呼叫 Gemini API 以 AI 給分"""
         import json as _json
@@ -417,7 +424,7 @@ class OCRProcessor:
                     "請回傳 JSON 格式，如：{\"score\": 85, \"reason\": \"內容完整，經歷豐富\"}"
                 )
                 response = client.models.generate_content(
-                    model='gemini-2.5-pro',
+                    model='gemini-3-pro-preview',
                     contents=prompt,
                     config={
                         'temperature': 0.2,
@@ -428,6 +435,8 @@ class OCRProcessor:
                 content = response.text if hasattr(response, 'text') else response.candidates[0].content.parts[0].text
                 content = content.strip().lstrip("```json").rstrip("```")
                 ai_result = _json.loads(content)
+                if "reason" in ai_result and isinstance(ai_result["reason"], str):
+                    ai_result["reason"] = self._wrap_text(ai_result["reason"], 50)
                 client.close()
                 return ai_result
             except Exception as e:
@@ -506,7 +515,7 @@ class OCRProcessor:
                 )
                 
                 response = client.models.generate_content(
-                    model='gemini-2.5-pro',
+                    model='gemini-3-pro-preview',
                     contents=[
                         types.Part.from_data(data=image_data, mime_type=mime_type),
                         prompt
@@ -521,6 +530,8 @@ class OCRProcessor:
                 content = response.text if hasattr(response, 'text') else response.candidates[0].content.parts[0].text
                 content = content.strip().lstrip("```json").rstrip("```")
                 ai_result = _json.loads(content)
+                if "reason" in ai_result and isinstance(ai_result["reason"], str):
+                    ai_result["reason"] = self._wrap_text(ai_result["reason"], 50)
                 client.close()
                 return ai_result
             except Exception as e:
