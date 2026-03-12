@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\dd7df4cfc15d7a615ee112596477761f.jpg",
-  "timestamp": 1769672767,
+  "timestamp": 1773162075,
   "total_pages": 1,
   "pages": [
     {
@@ -191,11 +191,11 @@
       "Email": true
     },
     "gemini_score": {
-      "score": 20,
+      "score": 5,
       "reason": [
-        "履歷內容大量使用 'Lorem ipsum' 佔位符，缺乏實質性的工作經驗描述、成就、以及具體技能展",
-        "示。雖然列出了技能和教育背景，但沒有提供任何細節或證據來支持這些聲明。整體而言，無法評估候選人的能力",
-        "和經驗。"
+        "這是一份未填寫完成的履歷模板。內容充斥著 'Lorem ipsum' 假字以及佔位符（如 YOUR ",
+        "NAME, COMPANY NAME, JOB TITLE HERE），完全缺乏實質的工作經歷、具體",
+        "學歷背景與個人成就描述，人資無法從中評估候選人的真實能力與價值。"
       ]
     },
     "original_file_score": {

@@ -146,6 +146,31 @@ class OCRProcessor:
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(ocr_json, f, ensure_ascii=False, indent=2)
         return output_path
+
+    # 字錯率（CER）與詞錯率（WER）計算工具
+    def calculate_cer(ocr_text: str, ground_truth: str) -> float:
+        """
+        計算字錯率（Character Error Rate, CER）
+        """
+        try:
+            import Levenshtein
+        except ImportError:
+            raise ImportError("請先安裝 python-Levenshtein 套件: pip install python-Levenshtein")
+        distance = Levenshtein.distance(ocr_text, ground_truth)
+        return distance / max(len(ground_truth), 1)
+
+    def calculate_wer(ocr_text: str, ground_truth: str) -> float:
+        """
+        計算詞錯率（Word Error Rate, WER）
+        """
+        try:
+            import Levenshtein
+        except ImportError:
+            raise ImportError("請先安裝 python-Levenshtein 套件: pip install python-Levenshtein")
+        ocr_words = ocr_text.split()
+        gt_words = ground_truth.split()
+        distance = Levenshtein.distance(" ".join(ocr_words), " ".join(gt_words))
+        return distance / max(len(gt_words), 1)
     
     """簡化的 OCR 處理器：重點是按順序抓行並做 key/value 偵測"""
     def __init__(self, config: OCRConfig = None):
@@ -706,7 +731,7 @@ class OCRProcessor:
             "total_lines": len(lines)
         }
 
-    def process_file(self, file_path: str) -> Tuple[bool, Dict[str, Any]]:
+    def process_file(self, file_path: str, ground_truth_text: str = None) -> Tuple[bool, Dict[str, Any]]:
         """使用 Azure Read API 處理檔案並回傳簡化 JSON（若未配置 Azure，回傳錯誤）"""
         if not self.is_supported_file(file_path):
             return False, {"error": f"不支援的檔案或不存在: {file_path}"}

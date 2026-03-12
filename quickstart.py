@@ -78,7 +78,6 @@ def main():
         print("-" * 60)
     
     print(f"\n處理完成！總共處理了 {len(files_found)} 個檔案")
-
-
+    
 if __name__ == "__main__":
     main()
