@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\new.pdf",
-  "timestamp": 1773162123,
+  "timestamp": 1773298518,
   "total_pages": 3,
   "pages": [
     {
@@ -162,12 +162,12 @@
       "Email": true
     },
     "gemini_score": {
-      "score": 95,
+      "score": 92,
       "reason": [
-        "候選人具備極具競爭力且市場稀缺的 HPC 與 GPU 底層開發技能（ROCm, CUDA, C++2",
-        "0, MPI），專案經驗深厚，包含跨平台架構移植與底層效能調優（Kernel 參數優化）。此外，擁有",
-        "亮眼的開源貢獻（GitHub Linguist, ROCm 生態系）及國際級競賽經歷（ISC 國手培",
-        "訓隊長）。以大學在學生而言，其技術深度、實戰經驗與社群活躍度皆遠超同儕，是極具潛力的頂尖技術人才。"
+        "身為大學在學生，具備極為罕見且高價值的 HPC 與 GPU 底層開發技能（ROCm, CUDA, C",
+        "++20, 跨節點多 GPU 部署）。擁有國網中心實習經驗、國際超級電腦競賽（ISC）國手培訓資格，",
+        "且對知名開源生態系（GitHub, ROCm）有實質貢獻。專案具備高度技術深度（如 Kernel 優",
+        "化、記憶體管理），且社群活躍度高，是極具潛力的頂尖技術人才。"
       ]
     },
     "original_file_score": {

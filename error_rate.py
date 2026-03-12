@@ -40,16 +40,38 @@ def crawl_gov_pdfs(base_url, dest_folder='assets', max_files=5):
     os.makedirs(dest_folder, exist_ok=True)
     resp = requests.get(base_url)
     soup = BeautifulSoup(resp.text, 'html.parser')
-    links = soup.find_all('a', href=True)
+    # 1. 取得所有資料集詳細頁連結
+    dataset_links = []
+    for a in soup.find_all('a', href=True):
+        href = a['href']
+        # 只抓 dataset 詳細頁
+        if href.startswith('/dataset/') or href.startswith('https://data.gov.tw/dataset/'):
+            # 統一成完整網址
+            if not href.startswith('http'):
+                href = requests.compat.urljoin(base_url, href)
+            if href not in dataset_links:
+                dataset_links.append(href)
+        if len(dataset_links) >= max_files:
+            break
     pdfs = []
-    for link in links:
-        href = link['href']
-        if href.lower().endswith('.pdf'):
-            pdf_url = href if href.startswith('http') else requests.compat.urljoin(base_url, href)
-            filename = os.path.join(dest_folder, os.path.basename(href))
-            pdfs.append({'url': pdf_url, 'filename': filename, 'source': base_url})
+    # 2. 進入每個詳細頁抓 PDF 連結
+    for detail_url in dataset_links:
+        try:
+            detail_resp = requests.get(detail_url)
+            detail_soup = BeautifulSoup(detail_resp.text, 'html.parser')
+            for link in detail_soup.find_all('a', href=True):
+                pdf_href = link['href']
+                if pdf_href.lower().endswith('.pdf'):
+                    pdf_url = pdf_href if pdf_href.startswith('http') else requests.compat.urljoin(detail_url, pdf_href)
+                    filename = os.path.join(dest_folder, os.path.basename(pdf_url))
+                    pdfs.append({'url': pdf_url, 'filename': filename, 'source': detail_url})
+                    if len(pdfs) >= max_files:
+                        break
             if len(pdfs) >= max_files:
                 break
+        except Exception as e:
+            print(f'錯誤: {detail_url} 解析失敗: {e}')
+    # 3. 下載 PDF
     for pdf in pdfs:
         if not os.path.exists(pdf['filename']):
             print(f'下載: {pdf["url"]}')
@@ -94,7 +116,7 @@ def main():
         return
 
     # ====== 自動爬取台灣政府PDF ======
-    base_url = 'https://www.archives.gov.tw/Publish.aspx?cnid=1442'  # 可更換其他政府網站
+    base_url = 'https://data.gov.tw/datasets/search?p=1&size=10&s=_score_desc&rafft=6415'  # 可更換其他政府網站
     print('開始爬取政府PDF...')
     pdfs = crawl_gov_pdfs(base_url, dest_folder='assets', max_files=3)
 
@@ -132,7 +154,7 @@ def main():
         print(f'原始PDF字數: {total}')
         print(f'OCR字數: {len(ocr_text)}')
         print(f'編輯距離: {dist}')
-        print(f'字錯率(CER): {error_rate:.4f}')
+        print(f'字錯率(CER): {error_rate*100:.2f}%')
         print()
 
 if __name__ == '__main__':

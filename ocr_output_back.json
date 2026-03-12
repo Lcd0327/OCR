@@ -1,6 +1,6 @@
 {
   "file_path": "D:\\Code\\OCR\\assets\\back.jpg",
-  "timestamp": 1773162052,
+  "timestamp": 1773298446,
   "total_pages": 1,
   "pages": [
     {
@@ -107,11 +107,11 @@
       "Email": false
     },
     "gemini_score": {
-      "score": 25,
+      "score": 20,
       "reason": [
-        "具備明確的技術關鍵字（如Node.js, Golang, PyTorch）與 LinkedIn 測驗",
-        "認證為唯一亮點。但內容充斥嚴重亂碼與無意義字串，完全缺乏學歷與工作經歷的具體描述（僅有日期而無公司/",
-        "學校名稱或職務內容），且聯絡電話格式錯誤無法聯繫，導致履歷喪失基本功能，HR 無法進行實質評估。"
+        "內容充滿亂碼與無意義字詞（含日文亂碼），聯絡電話格式嚴重錯誤且無提供 Email，導致無法聯繫。雖然",
+        "有列出 Node.js、Golang、Python 等明確的技術關鍵字，但完全缺乏學歷背景、工作經歷",
+        "、專案實績與具體職務描述，HR 無法從中評估候選人的真實能力與過往貢獻，實質上屬於無效履歷。"
       ]
     },
     "original_file_score": {
